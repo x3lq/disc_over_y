@@ -54,17 +54,20 @@ public class Movement : MonoBehaviour {
 
         Vector3 direction = Vector3.up * verticalVelocity + Vector3.right * horizontalVelocity;
 
-        if (direction.magnitude > 0.1)
+        if (animator != null)
         {
+            if (direction.magnitude > 0.1)
+            {
+                animator.SetFloat("Horizontal", movementDirection.x);
+                animator.SetFloat("Vertical", movementDirection.y);
+                animator.speed = (Vector3.up * verticalVelocity + Vector3.right * horizontalVelocity).magnitude;
+            }
+            else
+            {
+                animator.speed = 0;
+            }
+        }
 
-            animator.SetFloat("Horizontal", movementDirection.x);
-            animator.SetFloat("Vertical", movementDirection.y);
-            animator.speed = (Vector3.up * verticalVelocity + Vector3.right * horizontalVelocity).magnitude;
-        }
-        else
-        {
-            animator.speed = 0;
-        }
         SetPlayerHeading();
     }
 

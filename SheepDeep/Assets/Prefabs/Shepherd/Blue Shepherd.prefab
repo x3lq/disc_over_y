@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 50014673621386094}
   - component: {fileID: 61309942038491958}
   - component: {fileID: 114048348345621748}
-  - component: {fileID: 114323545367840122}
+  - component: {fileID: 114911945471236956}
   m_Layer: 0
   m_Name: Blue Shepherd
   m_TagString: Untagged
@@ -39,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1087919503795352}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.8822324, y: -0.54546666, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -122,7 +122,7 @@ MonoBehaviour:
   horizontalVelocity: 0
   verticalVelocity: 0
   speed: 5
---- !u!114 &114323545367840122
+--- !u!114 &114911945471236956
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,10 +130,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1087919503795352}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5d24af94a673c54a986259040323003, type: 3}
+  m_Script: {fileID: 11500000, guid: ff4a0162efa34c540aa3d18e886459ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 1
+  playerID: 0
   interactionCheckBoxSize: 0.25
   heading: {x: 0, y: 0}
 --- !u!212 &212838888522783548
