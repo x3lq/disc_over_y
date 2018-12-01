@@ -39,7 +39,7 @@ public class Sheep : MonoBehaviour {
 
         noiseOffset = Random.value * 10.0f;
 
-        var animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -53,7 +53,7 @@ public class Sheep : MonoBehaviour {
         if (targetIsActive > 0)
         {
             targetIsActive -= Time.deltaTime;
-            rigidbody.velocity += (targetPosition - (Vector2)transform.position).normalized * 0.1f;
+            estimatedVelocity += (targetPosition - (Vector2)transform.position).normalized * 0.1f;
         }
 
         int randomDirection;
@@ -69,30 +69,31 @@ public class Sheep : MonoBehaviour {
         {
             case 1:
                 //Move up
-                rigidbody.velocity = CalculateCrowdMovement(new Vector2(rigidbody.velocity.x, rigidbody.velocity.y + 0.1f));
+                estimatedVelocity = CalculateCrowdMovement(new Vector2(estimatedVelocity.x, estimatedVelocity.y + 0.1f));
                 stepCount++;
                 break;
             case 2:
                 //Move right
-                rigidbody.velocity = CalculateCrowdMovement(new Vector2(rigidbody.velocity.x + 0.1f, rigidbody.velocity.y));
+                estimatedVelocity = CalculateCrowdMovement(new Vector2(estimatedVelocity.x + 0.1f, estimatedVelocity.y));
                 stepCount++;
                 break;
             case 3:
                 //Move down
-                rigidbody.velocity = CalculateCrowdMovement(new Vector2(rigidbody.velocity.x, rigidbody.velocity.y - 0.1f));
+                estimatedVelocity = CalculateCrowdMovement(new Vector2(estimatedVelocity.x, estimatedVelocity.y - 0.1f));
                 stepCount++;
                 break;
             case 4:
                 //Move left
-                rigidbody.velocity = CalculateCrowdMovement(new Vector2(rigidbody.velocity.x - 0.1f, rigidbody.velocity.y));
+                estimatedVelocity = CalculateCrowdMovement(new Vector2(estimatedVelocity.x - 0.1f, estimatedVelocity.y));
                 stepCount++;
                 break;
             default:
-                rigidbody.velocity = new Vector2(0, 0);
+                estimatedVelocity = new Vector2(0, 0);
                 stepCount = 0;
                 noStepCount++;
                 break;
         }
+        rigidbody.velocity = Vector2.Lerp(rigidbody.velocity, estimatedVelocity, Time.deltaTime);
     }
 
     public bool SheppardInteraction()
