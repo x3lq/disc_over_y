@@ -8,7 +8,7 @@ public class PlayerSelector : MonoBehaviour {
 
     public List<int> activePlayers;
 
-    public GameObject sheppardPrefab, wolfPrefab;
+    public GameObject redShepherdPrefab, blueShepherdPrefab, greenShepherdPrefab, wolfPrefab;
 
     public float spawnFieldSize;
 
@@ -31,6 +31,8 @@ public class PlayerSelector : MonoBehaviour {
             wolfPlayerID = Random.Range(1, maxPlayers+1);
         }
 
+        int shepherdCount = 0;
+
         for(int i=1; i<=maxPlayers; i++)
         {
             if (!activePlayers.Contains(i)) { continue; }
@@ -42,7 +44,27 @@ public class PlayerSelector : MonoBehaviour {
             }
             else
             {
-                newPlayer = Instantiate(sheppardPrefab).GetComponent<Player>();
+                GameObject shepherd;
+
+                switch (shepherdCount)
+                {
+                    case 0:
+                        shepherd = redShepherdPrefab;
+                        break;
+                    case 1:
+                        shepherd = blueShepherdPrefab;
+                        break;
+                    case 2:
+                        shepherd = greenShepherdPrefab;
+                        break;
+                    default:
+                        shepherd = redShepherdPrefab;
+                        break;
+                }
+
+                newPlayer = Instantiate(shepherd).GetComponent<Player>();
+
+                shepherdCount++;
             }
 
             CameraBehavior.playerObjects.Add(newPlayer);

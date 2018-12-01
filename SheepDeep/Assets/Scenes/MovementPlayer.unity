@@ -140,9 +140,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65888ad18e9d2e944bc95d1753d5b4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPlayers: 2
-  activePlayers: 0100000002000000
-  sheppardPrefab: {fileID: 1784277440321306, guid: f3ea6c982a15961419922abba6ca4588,
+  maxPlayers: 4
+  activePlayers: 01000000020000000300000004000000
+  redShepherdPrefab: {fileID: 1100466993660152, guid: efdee7f2b33175047bbea4ad794bccf4,
+    type: 2}
+  blueShepherdPrefab: {fileID: 1087919503795352, guid: f8bbf374d89149947be0b80bab422a44,
+    type: 2}
+  greenShepherdPrefab: {fileID: 1755198923189326, guid: c170c3f262455084e8e9ad46d8e50b26,
     type: 2}
   wolfPrefab: {fileID: 1847392462612000, guid: 4ad93b1b8ebc2514ab964db50f583f1e, type: 2}
   spawnFieldSize: 2
