@@ -128,7 +128,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1731347661226254}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22bd54c95f88d8f40b9eb2a171fa1d13, type: 3}
   m_Name: 
@@ -149,3 +149,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasWool: 1
   growWoolTime: 5
+  animationSpeedVariation: 0.2
