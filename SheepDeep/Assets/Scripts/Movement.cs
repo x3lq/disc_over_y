@@ -15,6 +15,8 @@ public class Movement : MonoBehaviour {
     public float horizontalVelocity;
     public float verticalVelocity;
 
+    private Vector3 movementDirection;
+
     public float speed;
 
 	// Use this for initialization
@@ -41,7 +43,18 @@ public class Movement : MonoBehaviour {
 
     void HandleMovement()
     {
-        Vector3 movementDirection = Vector3.up * verticalVelocity + Vector3.right * horizontalVelocity;
+        movementDirection = Vector3.up * verticalVelocity + Vector3.right * horizontalVelocity;
         rb.velocity = movementDirection * speed;
+
+        SetPlayerHeading();
+    }
+
+    void SetPlayerHeading()
+    {
+        Vector2 normalizedHeading = new Vector2((int)(movementDirection.x*100), (int)(movementDirection.y*1000)).normalized;
+        if(normalizedHeading != Vector2.zero)
+        {
+            player.heading = normalizedHeading;
+        }
     }
 }

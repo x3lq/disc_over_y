@@ -148,3 +148,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerID: 0
+  interactionCheckBoxSize: 0.25
+  heading: {x: 0, y: 0}
