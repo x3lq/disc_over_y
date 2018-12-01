@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerID: 1
-  interactionCheckBoxSize: 0.25
+  interactionCheckBoxSize: 0.2
   heading: {x: 0, y: 0}
 --- !u!212 &212422255113268516
 SpriteRenderer:
