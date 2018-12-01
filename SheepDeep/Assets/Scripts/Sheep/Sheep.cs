@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Sheep : MonoBehaviour {
 
+    private Animator animator;
+
     private Renderer renderer;
 
     public bool hasWool;
@@ -13,6 +15,7 @@ public class Sheep : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         renderer = GetComponent<Renderer>();
+        animator = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -26,9 +29,7 @@ public class Sheep : MonoBehaviour {
         {
             hasWool = false;
 
-            renderer.material.color = Color.white * 0.5f;
-
-            StartCoroutine(GrowWool());
+            animator.Play("Shear");
 
             return true;
         }
@@ -38,24 +39,28 @@ public class Sheep : MonoBehaviour {
         }
     }
 
-    private IEnumerator GrowWool()
+    private void GrowWool()
     {
-        yield return new WaitForSeconds(growWoolTime);
-
         hasWool = true;
 
-        renderer.material.color = Color.white;
+        animator.Play("Movement");
     }
 
     public void WolfInteraction()
     {
-        Destroy(gameObject);
+        animator.Play("Death");
+        GetComponent<BoxCollider2D>().enabled = false;
     }
 
     public void GiveBirth(Vector3 position) {
         GameObject newBorn = Instantiate(SheepManager.GetManager().sheepPrefab, position, Quaternion.identity);
         newBorn.transform.parent = SheepManager.GetManager().herd.transform;
         SheepManager.GetManager().sheeps.Add(newBorn);
-        Debug.Log("New Sheep");
+    }
+
+    public void Death()
+    {
+        SheepManager.GetManager().sheeps.Remove(gameObject);
+        Destroy(gameObject);
     }
 }
