@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Wolf : Player {
 
@@ -16,7 +17,7 @@ public class Wolf : Player {
 
     void HandleInputs()
     {
-        if (Input.GetButton("InteractionP" + playerID))
+        if (Input.GetKeyDown("joystick " + playerID + " button 0"))
         {
             TriggerInteraction();
         }
@@ -25,7 +26,7 @@ public class Wolf : Player {
     void TriggerInteraction()
     {
 
-        Collider2D collider = Physics2D.OverlapBox(transform.position + (Vector3)heading, new Vector2(interactionCheckBoxSize, interactionCheckBoxSize), 0);
+        Collider2D collider = Physics2D.OverlapBox(transform.position + (Vector3)heading * 0.8f, new Vector2(interactionCheckBoxSize, interactionCheckBoxSize), 0);
 
         if (collider != null)
         {
@@ -36,5 +37,12 @@ public class Wolf : Player {
         {
             collider.GetComponent<Sheep>().WolfInteraction();
         }
+
+
+    }
+
+    public void SheppardInteraction() {
+        Debug.Log("Wolf died");
+        SceneManager.LoadScene(3);
     }
 }

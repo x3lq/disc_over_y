@@ -11,6 +11,11 @@ public class Sheep : MonoBehaviour
     private SheepManager manager;
 
     public bool hasWool;
+    public bool hasBaby;
+    public float getPregnantTime;
+    GameObject deathTimer;
+   
+    
 
     public float growWoolTime;
 
@@ -26,6 +31,8 @@ public class Sheep : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        StartCoroutine(GrowWool());
+        //StartCoroutine(GetPregnant());
         renderer = GetComponent<Renderer>();
         rigidbody = transform.GetComponent<Rigidbody2D>();
         manager = FindObjectOfType<SheepManager>();
@@ -97,6 +104,21 @@ public class Sheep : MonoBehaviour
 
     public bool SheppardInteraction()
     {
+        //pregnant sheeps cant lose wool
+        if (hasBaby)
+        {
+            //TODO stop movement of pregnant sheep
+            StopCoroutine(DeathInChildBirth());
+            if (deathTimer != null) Destroy(deathTimer);
+            hasBaby = false;
+            SheepManager.numOfPregnantSheeps--;
+
+            GiveBirth(new Vector3(transform.position.x, transform.position.y + SheepManager.newBornSpawnPositionOffset, transform.position.z));
+            renderer.material.color = Color.white;
+            //StartCoroutine(GetPregnant());
+            return true;
+        }
+
         if (hasWool)
         {
             hasWool = false;
@@ -104,7 +126,6 @@ public class Sheep : MonoBehaviour
             renderer.material.color = Color.white * 0.5f;
 
             StartCoroutine(GrowWool());
-
             return true;
         }
         else
@@ -115,11 +136,31 @@ public class Sheep : MonoBehaviour
 
     private IEnumerator GrowWool()
     {
-        yield return new WaitForSeconds(growWoolTime);
+        yield return new WaitForSeconds(Random.Range(SheepManager.growWoolLowerTime, SheepManager.growWoolUpperTime));
 
         hasWool = true;
 
         renderer.material.color = Color.white;
+    }
+
+    public IEnumerator GetPregnant()
+    {
+        yield return new WaitForSeconds(Random.Range(SheepManager.getPregnantLowerTime, SheepManager.getPregnantUpperTime));
+        hasBaby = true;
+        renderer.material.color = Color.magenta;
+        StartCoroutine(DeathInChildBirth());
+
+
+    }
+
+    private IEnumerator DeathInChildBirth()
+    {
+        yield return new WaitForSeconds(SheepManager.GetManager().deathInChildBirth);
+        //deathTimer = Instantiate(SheepManager.GetManager().deathTimer, new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z), Quaternion.identity);
+        SheepManager.GetManager().sheeps.Remove(gameObject);
+        SheepManager.numOfPregnantSheeps--;
+        //Destroy(deathTimer);
+        Destroy(gameObject);
     }
 
     public void WolfInteraction()

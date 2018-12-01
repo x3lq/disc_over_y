@@ -133,8 +133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff4a0162efa34c540aa3d18e886459ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 0
-  interactionCheckBoxSize: 0.25
+  playerID: 1
+  interactionCheckBoxSize: 0.2
   heading: {x: 0, y: 0}
 --- !u!212 &212422255113268516
 SpriteRenderer:

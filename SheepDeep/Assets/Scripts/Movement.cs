@@ -64,7 +64,17 @@ public class Movement : MonoBehaviour {
             }
             else
             {
-                animator.speed = 0;
+                float x = animator.GetFloat("Horizontal");
+                if (x != 0)
+                {
+                    animator.SetFloat("Horizontal", x / Mathf.Abs(x) * 0.1f);
+                }
+                float y = animator.GetFloat("Vertical");
+                if (y != 0)
+                {
+                    animator.SetFloat("Vertical", y / Mathf.Abs(y) * 0.1f);
+                }
+                animator.speed = 1;
             }
         }
 

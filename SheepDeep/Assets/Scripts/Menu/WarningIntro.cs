@@ -8,5 +8,6 @@ public class WarningIntro : MonoBehaviour {
 
 	public void onAnimationEnd() {
 		SceneManager.LoadScene(1);
+        
 	}
 }

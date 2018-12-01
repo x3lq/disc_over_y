@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MovementPlayer.unity
     guid: 92876d329dda3f74f9dcbb2103dbabd3
+  - enabled: 1
+    path: Assets/Scenes/FinishScreen.unity
+    guid: 9f54db2486f0b414ca678cc6565afada
   m_configObjects: {}
