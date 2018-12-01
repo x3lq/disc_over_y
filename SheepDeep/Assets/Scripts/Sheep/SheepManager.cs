@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SheepSpawner : MonoBehaviour {
+public class SheepManager : MonoBehaviour {
 
-	public static ArrayList sheeps;
+	public static List<GameObject> sheeps;
 	//anchor point is bottom left
 	public int x_maxSize, y_maxSize;
 	public GameObject sheepPrefab; 
@@ -13,17 +13,32 @@ public class SheepSpawner : MonoBehaviour {
 	public float distanceToBorder;
 	public int amount;
 
-	// Use this for initialization
+	public int randomSpawnMedian;
+	public float randomSpawnVariance;
+	private float spawnTimer;
+
 	void Start () {
-		sheeps = new ArrayList();
+		sheeps = new List<GameObject>();
 
 		for(int i=0; i<amount; i++) {
 			GameObject sheep = GameObject.Instantiate(sheepPrefab, new Vector3(randomCoordinate(x_maxSize), randomCoordinate(y_maxSize),0), Quaternion.identity);
 			sheep.transform.parent = herd.transform;
+			sheeps.Add(sheep);
 		}
 	}
 
-	public static ArrayList getSheeps() {
+	void Update() {
+
+		if(spawnTimer > 0) {
+			spawnTimer -= Time.deltaTime;
+		}else {
+			spawnTimer = randomSpawnMedian + Random.Range(-1, 1) * randomSpawnVariance * randomSpawnMedian;
+			GameObject randomSheep = sheeps[Random.Range(0, sheeps.Count)];
+			Debug.Log("New Sheep born");
+		}
+	}
+
+	public static List<GameObject> getSheeps() {
 		return sheeps;
 	}
 
