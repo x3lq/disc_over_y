@@ -16,7 +16,7 @@ public class Shepherd : Player {
 
     void HandleInputs()
     {
-        if (Input.GetButton("InteractionP" + playerID))
+        if (Input.GetKeyDown("joystick " + playerID + " button 0"))
         {
             TriggerInteraction();
         }
@@ -26,7 +26,7 @@ public class Shepherd : Player {
     {
         Debug.Log("Interaction");
 
-        Collider2D collider = Physics2D.OverlapBox(transform.position + (Vector3)heading, new Vector2(interactionCheckBoxSize, interactionCheckBoxSize), 0);
+        Collider2D collider = Physics2D.OverlapBox(transform.position + (Vector3)heading*0.8f + Vector3.down * 0.4f, new Vector2(interactionCheckBoxSize, interactionCheckBoxSize), 0);
 
         if(collider != null)
         {
@@ -36,6 +36,10 @@ public class Shepherd : Player {
         if (collider != null && collider.tag.Equals("Sheep"))
         {
             collider.GetComponent<Sheep>().SheppardInteraction();
+        }
+
+        if(collider != null && collider.tag.Equals("Wolf")) {
+            collider.GetComponent<Wolf>().SheppardInteraction();
         }
     }
 }

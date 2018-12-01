@@ -21,7 +21,7 @@ public class SheepManager : MonoBehaviour {
     public static float growWoolUpperTime = 5.0f;
     public static float growWoolLowerTime = 1.0f;
 
-    public static float deathInChildBirth = 5.0f;
+    public float deathInChildBirth = 5.0f;
 
 
     public float distanceToBorder;

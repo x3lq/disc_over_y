@@ -11,7 +11,7 @@ public class TimeUntilDeath : MonoBehaviour {
 
     void Start()
     {
-        startTime = SheepManager.deathInChildBirth;
+        startTime = SheepManager.GetManager().deathInChildBirth;
     }
 
     void FixedUpdate()

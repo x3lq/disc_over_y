@@ -39,7 +39,7 @@ public class Sheep : MonoBehaviour {
             GiveBirth(new Vector3(transform.position.x, transform.position.y + SheepManager.newBornSpawnPositionOffset, transform.position.z));
             renderer.material.color = Color.white;
             //StartCoroutine(GetPregnant());
-            
+            return true;
         }
 
         if (hasWool)
@@ -78,7 +78,7 @@ public class Sheep : MonoBehaviour {
 
     private IEnumerator DeathInChildBirth()
     {
-        yield return new WaitForSeconds(SheepManager.deathInChildBirth);
+        yield return new WaitForSeconds(SheepManager.GetManager().deathInChildBirth);
         //deathTimer = Instantiate(SheepManager.GetManager().deathTimer, new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z), Quaternion.identity);
         SheepManager.GetManager().sheeps.Remove(gameObject);
         SheepManager.numOfPregnantSheeps--;

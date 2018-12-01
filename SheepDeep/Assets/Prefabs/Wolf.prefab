@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114779540751662320}
   m_Layer: 0
   m_Name: Wolf
-  m_TagString: Untagged
+  m_TagString: Wolf
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -148,5 +148,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerID: 0
-  interactionCheckBoxSize: 0.25
+  interactionCheckBoxSize: 0.4
   heading: {x: 0, y: 0}
