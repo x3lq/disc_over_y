@@ -16,7 +16,7 @@ public class Wolf : Player {
 
     void HandleInputs()
     {
-        if (Input.GetButton("InteractionP" + playerID))
+        if (Input.GetKeyDown("joystick " + playerID + " button 0"))
         {
             TriggerInteraction();
         }
@@ -25,7 +25,7 @@ public class Wolf : Player {
     void TriggerInteraction()
     {
 
-        Collider2D collider = Physics2D.OverlapBox(transform.position + (Vector3)heading, new Vector2(interactionCheckBoxSize, interactionCheckBoxSize), 0);
+        Collider2D collider = Physics2D.OverlapBox(transform.position + (Vector3)heading * 0.8f, new Vector2(interactionCheckBoxSize, interactionCheckBoxSize), 0);
 
         if (collider != null)
         {
