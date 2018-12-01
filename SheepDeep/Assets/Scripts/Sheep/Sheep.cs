@@ -5,7 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Sheep : MonoBehaviour
 {
-
     private Renderer renderer;
     private Rigidbody2D rigidbody;
     private SheepManager manager;
@@ -15,8 +14,6 @@ public class Sheep : MonoBehaviour
     public float getPregnantTime;
     GameObject deathTimer;
    
-    
-
     public float growWoolTime;
 
     private int stepCount = 0;
@@ -52,7 +49,7 @@ public class Sheep : MonoBehaviour
 
     private void Move()
     {
-        if (movementCooldown <= 0)
+        /*if (movementCooldown <= 0)
         {
             //movementCooldown = 1;
         }
@@ -60,7 +57,7 @@ public class Sheep : MonoBehaviour
         {
             movementCooldown -= Time.deltaTime;
             return;
-        }
+        }*/
 
         int randomDirection;
         if (stepCount > 30)
@@ -69,7 +66,7 @@ public class Sheep : MonoBehaviour
         }
         else
         {
-            randomDirection = UnityEngine.Random.Range(noStepCount > 10 ? 1 : 0, 5);
+            randomDirection = Random.Range(noStepCount > 10 ? 1 : 0, 5);
         }
 
         switch (randomDirection)
@@ -149,8 +146,6 @@ public class Sheep : MonoBehaviour
         hasBaby = true;
         renderer.material.color = Color.magenta;
         StartCoroutine(DeathInChildBirth());
-
-
     }
 
     private IEnumerator DeathInChildBirth()
@@ -176,13 +171,16 @@ public class Sheep : MonoBehaviour
         Debug.Log("New Sheep");
     }
 
-    private void checkTarget()
+    public void setTarget()
     {
-        if(manager.getTargetPosition() != null)
-        {
-            rigidbody.velocity /= 2;
-            rigidbody.velocity += ((Vector2)transform.position - manager.getTargetPosition()).normalized * 2;
-        }
+        StopCoroutine("DelayTargetSet");
+        StartCoroutine("DelayTargetSet");
+    }
+
+    IEnumerator DelayTargetSet()
+    {
+        yield return new WaitForSeconds(Random.Range(0f, 10f));
+        rigidbody.velocity += (manager.getTargetPosition() - (Vector2)transform.position).normalized * 0.1f;
     }
 
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------

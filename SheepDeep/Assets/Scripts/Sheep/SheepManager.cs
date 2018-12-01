@@ -2,7 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SheepManager : MonoBehaviour {
+public class SheepManager : MonoBehaviour
+{
+    private static SheepManager instance;
+    public List<GameObject> sheeps;
+    public static int numOfPregnantSheeps = 0;
+    public static int numOfPregnantSheepsAllowed = 5;
+    //anchor point is bottom left
+    public int x_maxSize, y_maxSize;
+    public GameObject sheepPrefab;
+    public GameObject herd;
+    //public GameObject deathTimer;
 
 	private static SheepManager instance;
 	public List<GameObject> sheeps;
@@ -24,13 +34,12 @@ public class SheepManager : MonoBehaviour {
     public float deathInChildBirth = 5.0f;
 
     [Range(0, 0.9f)]
-	public float distanceToBorder;
-	public int amount;
-    
+    public float distanceToBorder;
+    public int amount;
 
-	public int randomSpawnMedian;
-	public float randomSpawnVariance;
-	private float spawnTimer;
+    public int randomSpawnMedian;
+    public float randomSpawnVariance;
+    private float spawnTimer;
 
     #region crowdMovementVariables
     [Range(0.1f, 20.0f)]
@@ -46,26 +55,33 @@ public class SheepManager : MonoBehaviour {
     public float neighborDist = 2.0f;
 
     private Vector2 targetPosition = Vector2.zero;
+
+    private float magicMotivationCounter = 0;
     #endregion
 
     void Awake()
-	{
-		if(instance == null){
-			instance = this;		
-		} else if (instance != this) {
-			Destroy(this);
-		}
-	}
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(this);
+        }
+    }
 
-	void Start () {
-		sheeps = new List<GameObject>();
-		for(int i=0; i<amount; i++) {
-			GameObject sheep = GameObject.Instantiate(sheepPrefab, new Vector3(randomCoordinate(x_maxSize),
-					randomCoordinate(y_maxSize),0), Quaternion.identity);
-			sheep.transform.parent = herd.transform;
-			sheeps.Add(sheep);
-		}
-	}
+    void Start()
+    {
+        sheeps = new List<GameObject>();
+        for (int i = 0; i < amount; i++)
+        {
+            GameObject sheep = GameObject.Instantiate(sheepPrefab, new Vector3(randomCoordinate(x_maxSize),
+                    randomCoordinate(y_maxSize), 0), Quaternion.identity);
+            sheep.transform.parent = herd.transform;
+            sheeps.Add(sheep);
+        }
+    }
 
 	void FixedUpdate() {
         if(numOfPregnantSheeps <= numOfPregnantSheepsAllowed)
@@ -86,24 +102,35 @@ public class SheepManager : MonoBehaviour {
 			if(sheep != null) {
 				sheep.GiveBirth(randomSheep.transform.position);
 			}*/
-		}
-	}
-	
-	void Update() {
-	    int movementMotivation = Random.Range(0, 20);
-        if(movementMotivation == 19)
+    }
+
+    void Update()
+    {
+        if(magicMotivationCounter <= 0)
         {
-            chooseNewTarget();
+            magicMotivationCounter = Random.Range(4, 10);
+            int movementMotivation = Random.Range(0, 20);
+            if (movementMotivation == 19)
+            {
+                chooseNewTarget();
+            }
         }
-	}
+        else
+        {
+            magicMotivationCounter -= Time.deltaTime;
+        }
+        
+    }
 
-	private int randomCoordinate(int maxSize) {
-		return Random.Range((0 + (int) (maxSize*distanceToBorder)), maxSize - (int) (maxSize*distanceToBorder));
-	}
+    private int randomCoordinate(int maxSize)
+    {
+        return Random.Range((0 + (int)(maxSize * distanceToBorder)), maxSize - (int)(maxSize * distanceToBorder));
+    }
 
-	public static SheepManager GetManager() {
-		return instance;
-	}
+    public static SheepManager GetManager()
+    {
+        return instance;
+    }
 
     public Vector2 getTargetPosition()
     {
@@ -113,12 +140,16 @@ public class SheepManager : MonoBehaviour {
     private void chooseNewTarget()
     {
         targetPosition = new Vector2(Random.Range(-x_maxSize, x_maxSize + 1), Random.Range(-y_maxSize, y_maxSize + 1));
+        foreach(GameObject sheep in sheeps)
+        {
+            sheep.GetComponent<Sheep>().setTarget();
+        }
         StartCoroutine("DeleteSheepTarget");
     }
 
     IEnumerator DeleteSheepTarget()
     {
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(5);
         targetPosition = Vector2.zero;
     }
 }
