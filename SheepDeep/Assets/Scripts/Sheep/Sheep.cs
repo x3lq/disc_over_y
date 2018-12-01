@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Movement))]
+[RequireComponent(typeof(Renderer))]
 public class Sheep : MonoBehaviour {
 
     private Animator animator;
     private Renderer renderer;
     private Rigidbody2D rigidbody;
     private SheepManager manager;
+    private Movement walkAnimationHandler;
 
     public bool hasWool;
     public bool hasBaby;
@@ -26,15 +29,16 @@ public class Sheep : MonoBehaviour {
 
     private float targetIsActive = 0;
     private Vector2 targetPosition;
-    private Vector2 estimatedVelocity;
+    private Vector2 estimatedVelocity = new Vector2();
 
     // Use this for initialization
     void Start()
     {
         //StartCoroutine(GetPregnant());
         renderer = GetComponent<Renderer>();
-        rigidbody = transform.GetComponent<Rigidbody2D>();
+        rigidbody = GetComponent<Rigidbody2D>();
         manager = FindObjectOfType<SheepManager>();
+        walkAnimationHandler = GetComponent<Movement>();
 
         noiseOffset = Random.value * 10.0f;
 
@@ -93,6 +97,8 @@ public class Sheep : MonoBehaviour {
                 break;
         }
         rigidbody.velocity = Vector2.Lerp(rigidbody.velocity, estimatedVelocity, Time.deltaTime);
+        walkAnimationHandler.horizontalVelocity = rigidbody.velocity.x;
+        walkAnimationHandler.verticalVelocity = rigidbody.velocity.y;
     }
 
     public bool SheppardInteraction()

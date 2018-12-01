@@ -114,14 +114,14 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1731347661226254}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22bd54c95f88d8f40b9eb2a171fa1d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   horizontalVelocity: 0
   verticalVelocity: 0
-  speed: 5
+  speed: 1
 --- !u!114 &114607497165187026
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -134,7 +134,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasWool: 1
+  hasBaby: 0
+  getPregnantTime: 0
   growWoolTime: 5
+  animationSpeedVariation: 0.2
 --- !u!212 &212360136973454126
 SpriteRenderer:
   m_ObjectHideFlags: 1
