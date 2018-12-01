@@ -2,13 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
-
-    public int playerID;
-
-    public float interactionCheckBoxSize;
-
-    public Vector2 heading;
+public class Sheep : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -17,6 +11,16 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		
 	}
+
+    public void SheppardInteraction()
+    {
+        Destroy(gameObject);
+    }
+
+    public void WolfInteraction()
+    {
+        Destroy(gameObject);
+    }
 }

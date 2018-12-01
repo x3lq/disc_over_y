@@ -9,35 +9,35 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1847392462612000}
+  m_RootGameObject: {fileID: 1731347661226254}
   m_IsPrefabAsset: 1
---- !u!1 &1847392462612000
+--- !u!1 &1731347661226254
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4844584104565070}
-  - component: {fileID: 33225599421531024}
-  - component: {fileID: 23080716147244162}
-  - component: {fileID: 50245506807379254}
-  - component: {fileID: 58789440224796924}
-  - component: {fileID: 114261474269121794}
-  - component: {fileID: 114779540751662320}
+  - component: {fileID: 4929271345187338}
+  - component: {fileID: 33948759955763356}
+  - component: {fileID: 23195799704282102}
+  - component: {fileID: 50708864423984614}
+  - component: {fileID: 58952786218817536}
+  - component: {fileID: 114448424323599610}
+  - component: {fileID: 114607497165187026}
   m_Layer: 0
-  m_Name: Wolf
-  m_TagString: Untagged
+  m_Name: Sheep
+  m_TagString: Sheep
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4844584104565070
+--- !u!4 &4929271345187338
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1847392462612000}
+  m_GameObject: {fileID: 1731347661226254}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -45,12 +45,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23080716147244162
+--- !u!23 &23195799704282102
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1847392462612000}
+  m_GameObject: {fileID: 1731347661226254}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -60,7 +60,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 014e2ced5a42e3b4f96550abdde9726a, type: 2}
+  - {fileID: 2100000, guid: 1745e31e99770f642abb2d83200dcc37, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -80,20 +80,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33225599421531024
+--- !u!33 &33948759955763356
 MeshFilter:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1847392462612000}
+  m_GameObject: {fileID: 1731347661226254}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!50 &50245506807379254
+--- !u!50 &50708864423984614
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1847392462612000}
+  m_GameObject: {fileID: 1731347661226254}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -107,12 +107,12 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!58 &58789440224796924
+--- !u!58 &58952786218817536
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1847392462612000}
+  m_GameObject: {fileID: 1731347661226254}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -122,12 +122,12 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &114261474269121794
+--- !u!114 &114448424323599610
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1847392462612000}
+  m_GameObject: {fileID: 1731347661226254}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22bd54c95f88d8f40b9eb2a171fa1d13, type: 3}
@@ -136,17 +136,15 @@ MonoBehaviour:
   horizontalVelocity: 0
   verticalVelocity: 0
   speed: 5
---- !u!114 &114779540751662320
+--- !u!114 &114607497165187026
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1847392462612000}
+  m_GameObject: {fileID: 1731347661226254}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e663547641f1564f8199e47889523bc, type: 3}
+  m_Script: {fileID: 11500000, guid: 963122846cff17549aa92dae68f4c751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerID: 0
-  interactionCheckBoxSize: 0.25
-  heading: {x: 0, y: 0}

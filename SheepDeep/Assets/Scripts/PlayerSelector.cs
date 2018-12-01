@@ -24,12 +24,12 @@ public class PlayerSelector : MonoBehaviour {
 
     void AddPlayersToScene()
     {
-        int wolfPlayerID = Random.Range(0,maxPlayers);
+        int wolfPlayerID = Random.Range(1,maxPlayers+1);
         while (!activePlayers.Contains(wolfPlayerID)){
-            wolfPlayerID = Random.Range(0, maxPlayers);
+            wolfPlayerID = Random.Range(1, maxPlayers+1);
         }
 
-        for(int i=0; i<maxPlayers; i++)
+        for(int i=1; i<=maxPlayers; i++)
         {
             if (!activePlayers.Contains(i)) { continue; }
 
@@ -43,7 +43,7 @@ public class PlayerSelector : MonoBehaviour {
                 newPlayer = Instantiate(sheppardPrefab).GetComponent<Player>();
             }
 
-            newPlayer.playerID = i + 1;
+            newPlayer.playerID = i;
 
             SetSpawnPosition(newPlayer);
         }
