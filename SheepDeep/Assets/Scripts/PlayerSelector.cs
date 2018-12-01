@@ -24,6 +24,8 @@ public class PlayerSelector : MonoBehaviour {
 
     void AddPlayersToScene()
     {
+        CameraBehavior.playerObjects = new List<Player>();
+
         int wolfPlayerID = Random.Range(1,maxPlayers+1);
         while (!activePlayers.Contains(wolfPlayerID)){
             wolfPlayerID = Random.Range(1, maxPlayers+1);
@@ -42,6 +44,8 @@ public class PlayerSelector : MonoBehaviour {
             {
                 newPlayer = Instantiate(sheppardPrefab).GetComponent<Player>();
             }
+
+            CameraBehavior.playerObjects.Add(newPlayer);
 
             newPlayer.playerID = i;
 
