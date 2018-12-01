@@ -5,9 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Wolf : Player {
 
+    private Animator animator;
+
 	// Use this for initialization
 	void Start () {
-		
+        animator = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -37,12 +39,15 @@ public class Wolf : Player {
         {
             collider.GetComponent<Sheep>().WolfInteraction();
         }
-
-
     }
 
     public void SheppardInteraction() {
-        Debug.Log("Wolf died");
+        animator.Play("Wolf Found");
+        movementEnabled = false;
+    }
+
+    public void WolfFoundAnimationFinished()
+    {
         SceneManager.LoadScene(3);
     }
 }
