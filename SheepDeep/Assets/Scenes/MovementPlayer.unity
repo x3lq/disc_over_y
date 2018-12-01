@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65888ad18e9d2e944bc95d1753d5b4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPlayers: 2
+  maxPlayers: 4
   activePlayers: 01000000020000000300000004000000
   redShepherdPrefab: {fileID: 1100466993660152, guid: efdee7f2b33175047bbea4ad794bccf4,
     type: 2}
@@ -561,6 +561,11 @@ Prefab:
     - target: {fileID: 1015221518298794, guid: 13e9bb665f779a24596ceb77f9017650, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114084158699042974, guid: 13e9bb665f779a24596ceb77f9017650,
+        type: 2}
+      propertyPath: amount
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13e9bb665f779a24596ceb77f9017650, type: 2}

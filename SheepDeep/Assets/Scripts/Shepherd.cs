@@ -6,6 +6,8 @@ public class Shepherd : Player {
 
     private Animator animator;
 
+    private Sheep motherSheep;
+
 	// Use this for initialization
 	void Start () {
         animator = GetComponent<Animator>();
@@ -30,11 +32,21 @@ public class Shepherd : Player {
         
         if (collider != null && collider.tag.Equals("Sheep"))
         {
-            collider.GetComponent<Sheep>().SheppardInteraction();
+            Sheep sheep = collider.GetComponent<Sheep>();
 
             animator.speed = 1;
-            animator.Play("Shear");
+            if (sheep.hasBaby)
+            {
+                motherSheep = sheep;
+                animator.Play("Baby Born");
+            }
+            else
+            {
+                animator.Play("Shear");
+            }
             movementEnabled = false;
+
+            sheep.SheppardInteraction();
         }
 
         if(collider != null && collider.tag.Equals("Wolf")) {
@@ -46,5 +58,15 @@ public class Shepherd : Player {
     {
         movementEnabled = true;
         animator.Play("Movement");
+    }
+
+    void FinishBaby()
+    {
+        movementEnabled = true;
+        animator.Play("Movement");
+        
+        motherSheep.GiveBirth(motherSheep.transform.position);
+
+        motherSheep = null;
     }
 }

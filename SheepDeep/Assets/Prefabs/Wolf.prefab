@@ -39,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1847392462612000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.87, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -136,6 +136,7 @@ MonoBehaviour:
   playerID: 1
   interactionCheckBoxSize: 0.4
   heading: {x: 0, y: 0}
+  movementEnabled: 1
 --- !u!212 &212683590174949912
 SpriteRenderer:
   m_ObjectHideFlags: 1
