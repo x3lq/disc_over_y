@@ -31,7 +31,6 @@ public class Sheep : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        StartCoroutine("GrowWool");
         //StartCoroutine(GetPregnant());
         renderer = GetComponent<Renderer>();
         rigidbody = transform.GetComponent<Rigidbody2D>();
@@ -39,7 +38,7 @@ public class Sheep : MonoBehaviour {
 
         noiseOffset = Random.value * 10.0f;
 
-        var animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
