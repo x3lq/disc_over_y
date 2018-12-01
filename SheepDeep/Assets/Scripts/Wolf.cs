@@ -26,7 +26,7 @@ public class Wolf : Player {
     void TriggerInteraction()
     {
 
-        Collider2D collider = Physics2D.OverlapBox(transform.position + (Vector3)heading * 0.8f, new Vector2(interactionCheckBoxSize, interactionCheckBoxSize), 0);
+        Collider2D collider = Physics2D.OverlapBox(transform.position + (Vector3)heading * 0.8f + Vector3.down * 0.9f, new Vector2(interactionCheckBoxSize, interactionCheckBoxSize), 0);
 
         if (collider != null)
         {

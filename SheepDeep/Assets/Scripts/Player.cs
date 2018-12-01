@@ -10,6 +10,8 @@ public class Player : MonoBehaviour {
 
     public Vector2 heading;
 
+    public bool movementEnabled = true;
+
 	// Use this for initialization
 	void Start () {
 		
