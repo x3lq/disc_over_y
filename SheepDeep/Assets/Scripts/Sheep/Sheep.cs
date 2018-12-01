@@ -23,4 +23,11 @@ public class Sheep : MonoBehaviour {
     {
         Destroy(gameObject);
     }
+
+    public void GiveBirth(Vector3 position) {
+        GameObject newBorn = Instantiate(SheepManager.GetManager().sheepPrefab, position, Quaternion.identity);
+        newBorn.transform.parent = SheepManager.GetManager().herd.transform;
+        SheepManager.GetManager().sheeps.Add(newBorn);
+        Debug.Log("New Sheep");
+    }
 }

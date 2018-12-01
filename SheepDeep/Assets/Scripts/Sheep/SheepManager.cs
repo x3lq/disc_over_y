@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SheepManager : MonoBehaviour {
 
-	public static List<GameObject> sheeps;
+	private static SheepManager instance;
+	public List<GameObject> sheeps;
 	//anchor point is bottom left
 	public int x_maxSize, y_maxSize;
 	public GameObject sheepPrefab; 
@@ -17,11 +18,20 @@ public class SheepManager : MonoBehaviour {
 	public float randomSpawnVariance;
 	private float spawnTimer;
 
+	void Awake()
+	{
+		if(instance == null){
+			instance = this;		
+		} else if (instance != this) {
+			Destroy(this);
+		}
+	}
 	void Start () {
-		sheeps = new List<GameObject>();
 
+		sheeps = new List<GameObject>();
 		for(int i=0; i<amount; i++) {
-			GameObject sheep = GameObject.Instantiate(sheepPrefab, new Vector3(randomCoordinate(x_maxSize), randomCoordinate(y_maxSize),0), Quaternion.identity);
+			GameObject sheep = GameObject.Instantiate(sheepPrefab, new Vector3(randomCoordinate(x_maxSize),
+					randomCoordinate(y_maxSize),0), Quaternion.identity);
 			sheep.transform.parent = herd.transform;
 			sheeps.Add(sheep);
 		}
@@ -34,15 +44,19 @@ public class SheepManager : MonoBehaviour {
 		}else {
 			spawnTimer = randomSpawnMedian + Random.Range(-1, 1) * randomSpawnVariance * randomSpawnMedian;
 			GameObject randomSheep = sheeps[Random.Range(0, sheeps.Count)];
-			Debug.Log("New Sheep born");
-		}
-	}
+			Sheep sheep = randomSheep.GetComponent("Sheep") as Sheep;
 
-	public static List<GameObject> getSheeps() {
-		return sheeps;
+			if(sheep != null) {
+				sheep.GiveBirth(randomSheep.transform.position);
+			}
+		}
 	}
 
 	private int randomCoordinate(int maxSize) {
 		return Random.Range((0 + (int) (maxSize*distanceToBorder)), maxSize - (int) (maxSize*distanceToBorder));
+	}
+
+	public static SheepManager GetManager() {
+		return instance;
 	}
 }
