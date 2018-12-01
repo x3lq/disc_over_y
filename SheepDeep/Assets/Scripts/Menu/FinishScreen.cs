@@ -33,7 +33,7 @@ public class FinishScreen : MonoBehaviour {
 		WinType win = new WinType();
 		win.populationWin = true;
 		win.shepparWin = true;
-		win.winnerId = 4;
+		win.winnerId = 1;
 		winner = win;
 
 		if(winner.shepparWin) {
@@ -51,6 +51,7 @@ public class FinishScreen : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		Debug.Log(startPressed);
 		if (startPressed && Input.GetKeyDown("joystick " + winner.winnerId + " button 7"))
         {
 			HighScoreManager.HighScoreObject newHighScore = new HighScoreManager.HighScoreObject();
@@ -115,6 +116,7 @@ public class FinishScreen : MonoBehaviour {
 			GameObject newItem = Instantiate(highScoreListPrefab, HighScoreList.transform.position, Quaternion.identity) as GameObject;
 			newItem.transform.parent = HighScoreList.transform;
 			newItem.transform.localPosition -= new Vector3(0, 50*pos, 0);
+			newItem.GetComponent<HighScoreListItem>().setText(name, time);
 	}
 
 	private string timeStringFromSecondes(int secondes) {
