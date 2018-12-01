@@ -17,7 +17,6 @@ public class Sheep : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        StartCoroutine(GrowWool());
         //StartCoroutine(GetPregnant());
         renderer = GetComponent<Renderer>();
         animator = GetComponent<Animator>();
@@ -70,7 +69,10 @@ public class Sheep : MonoBehaviour {
     {
         yield return new WaitForSeconds(Random.Range(SheepManager.getPregnantLowerTime, SheepManager.getPregnantUpperTime));
         hasBaby = true;
-        renderer.material.color = Color.magenta;
+
+        animator.Play("Baby Coming");
+        animator.speed = 1;
+
         StartCoroutine(DeathInChildBirth());
 
 
