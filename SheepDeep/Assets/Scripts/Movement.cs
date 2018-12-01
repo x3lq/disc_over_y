@@ -85,7 +85,10 @@ public class Movement : MonoBehaviour {
             }
         }
 
-        SetPlayerHeading();
+        if(player != null)
+        {
+            SetPlayerHeading();
+        }
     }
 
     void SetPlayerHeading()
@@ -93,6 +96,7 @@ public class Movement : MonoBehaviour {
         Vector2 normalizedHeading = new Vector2((int)(movementDirection.x*100), (int)(movementDirection.y*1000)).normalized;
         if(normalizedHeading != Vector2.zero)
         {
+            Debug.Log("Name: " + name);
             player.heading = normalizedHeading;
         }
     }
