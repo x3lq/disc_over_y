@@ -49,6 +49,13 @@ public class Movement : MonoBehaviour {
 
     void HandleMovement()
     {
+        if (player != null && !player.movementEnabled)
+        {
+            movementDirection = Vector2.zero;
+            rb.velocity = Vector2.zero;
+            return;
+        }
+
         movementDirection = Vector3.up * verticalVelocity / 1.5f + Vector3.right * horizontalVelocity;
         rb.velocity = movementDirection * speed;
 

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Sheep : MonoBehaviour
-{
+public class Sheep : MonoBehaviour {
+
+    private Animator animator;
     private Renderer renderer;
     private Rigidbody2D rigidbody;
     private SheepManager manager;
@@ -39,8 +40,6 @@ public class Sheep : MonoBehaviour
         noiseOffset = Random.value * 10.0f;
 
         var animator = GetComponent<Animator>();
-        if (animator)
-            animator.speed = Random.Range(-1.0f, 1.0f) * animationSpeedVariation + 1.0f;
     }
 
     // Update is called once per frame
@@ -117,9 +116,8 @@ public class Sheep : MonoBehaviour
         {
             hasWool = false;
 
-            renderer.material.color = Color.white * 0.5f;
+            animator.Play("Shear");
 
-            StartCoroutine(GrowWool());
             return true;
         }
         else
@@ -128,20 +126,21 @@ public class Sheep : MonoBehaviour
         }
     }
 
-    private IEnumerator GrowWool()
+    private void GrowWool()
     {
-        yield return new WaitForSeconds(Random.Range(SheepManager.growWoolLowerTime, SheepManager.growWoolUpperTime));
-
         hasWool = true;
 
-        renderer.material.color = Color.white;
+        animator.Play("Movement");
     }
 
     public IEnumerator GetPregnant()
     {
         yield return new WaitForSeconds(Random.Range(SheepManager.getPregnantLowerTime, SheepManager.getPregnantUpperTime));
         hasBaby = true;
-        renderer.material.color = Color.magenta;
+
+        animator.Play("Baby Coming");
+        animator.speed = 1;
+
         StartCoroutine(DeathInChildBirth());
     }
 
@@ -157,7 +156,8 @@ public class Sheep : MonoBehaviour
 
     public void WolfInteraction()
     {
-        Destroy(gameObject);
+        animator.Play("Death");
+        GetComponent<BoxCollider2D>().enabled = false;
     }
 
     public void GiveBirth(Vector3 position)
@@ -165,7 +165,6 @@ public class Sheep : MonoBehaviour
         GameObject newBorn = Instantiate(SheepManager.GetManager().sheepPrefab, position, Quaternion.identity);
         newBorn.transform.parent = SheepManager.GetManager().herd.transform;
         SheepManager.GetManager().sheeps.Add(newBorn);
-        Debug.Log("New Sheep");
     }
 
     public void setTarget(Vector2 targetPosition)
@@ -244,5 +243,11 @@ public class Sheep : MonoBehaviour
     public Vector2 GetVelocity()
     {
         return rigidbody.velocity;
+    }
+    
+    public void Death()
+    {
+        SheepManager.GetManager().sheeps.Remove(gameObject);
+        Destroy(gameObject);
     }
 }
