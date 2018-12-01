@@ -6,13 +6,27 @@ public class SheepManager : MonoBehaviour {
 
 	private static SheepManager instance;
 	public List<GameObject> sheeps;
+    public static int numOfPregnantSheeps = 0;
+    public static int numOfPregnantSheepsAllowed = 5;
 	//anchor point is bottom left
 	public int x_maxSize, y_maxSize;
 	public GameObject sheepPrefab; 
 	public GameObject herd;
+    //public GameObject deathTimer;
 
-	public float distanceToBorder;
+    public static float newBornSpawnPositionOffset = 0.3f;
+    public static float getPregnantUpperTime = 10.0f;
+    public static float getPregnantLowerTime = 1.0f;
+
+    public static float growWoolUpperTime = 5.0f;
+    public static float growWoolLowerTime = 1.0f;
+
+    public static float deathInChildBirth = 5.0f;
+
+
+    public float distanceToBorder;
 	public int amount;
+    
 
 	public int randomSpawnMedian;
 	public float randomSpawnVariance;
@@ -37,9 +51,16 @@ public class SheepManager : MonoBehaviour {
 		}
 	}
 
-	void Update() {
+	void FixedUpdate() {
+        if(numOfPregnantSheeps <= numOfPregnantSheepsAllowed)
+        {
+            //Debug.Log(sheeps.Count);
+            int i = Random.Range(0, sheeps.Count-1);
+            sheeps[i].GetComponent<Sheep>().StartCoroutine(sheeps[i].GetComponent<Sheep>().GetPregnant());
+            numOfPregnantSheeps++;
+        }
 
-		if(spawnTimer > 0) {
+		/*if(spawnTimer > 0) {
 			spawnTimer -= Time.deltaTime;
 		}else {
 			spawnTimer = randomSpawnMedian + Random.Range(-1, 1) * randomSpawnVariance * randomSpawnMedian;
@@ -50,6 +71,8 @@ public class SheepManager : MonoBehaviour {
 				sheep.GiveBirth(randomSheep.transform.position);
 			}
 		}
+        */
+        
 	}
 
 	private int randomCoordinate(int maxSize) {
@@ -59,4 +82,5 @@ public class SheepManager : MonoBehaviour {
 	public static SheepManager GetManager() {
 		return instance;
 	}
+
 }
