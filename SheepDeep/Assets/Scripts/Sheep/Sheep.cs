@@ -31,7 +31,7 @@ public class Sheep : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        StartCoroutine(GrowWool());
+        StartCoroutine("GrowWool");
         //StartCoroutine(GetPregnant());
         renderer = GetComponent<Renderer>();
         rigidbody = transform.GetComponent<Rigidbody2D>();
