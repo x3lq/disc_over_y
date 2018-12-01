@@ -6,6 +6,8 @@ using UnityEngine;
 public class Movement : MonoBehaviour {
 
     private Rigidbody2D rb;
+
+    private Player player;
     
     private float horizontalInput;
     private float verticalInput;
@@ -18,6 +20,7 @@ public class Movement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
+        player = GetComponent<Player>();
 	}
 	
 	// Update is called once per frame
@@ -29,8 +32,8 @@ public class Movement : MonoBehaviour {
 
     void HandleInputs()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+        horizontalInput = -Input.GetAxis("HorizontalP" + player.playerID);
+        verticalInput = Input.GetAxis("VerticalP" + player.playerID);
 
         horizontalVelocity = horizontalInput;
         verticalVelocity = verticalInput;
