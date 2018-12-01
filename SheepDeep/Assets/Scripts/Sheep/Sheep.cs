@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class Sheep : MonoBehaviour {
 
+    private Renderer renderer;
+
+    public bool hasWool;
+
+    public float growWoolTime;
+
 	// Use this for initialization
 	void Start () {
-		
+        renderer = GetComponent<Renderer>();
 	}
 	
 	// Update is called once per frame
@@ -14,9 +20,31 @@ public class Sheep : MonoBehaviour {
 		
 	}
 
-    public void SheppardInteraction()
+    public bool SheppardInteraction()
     {
-        Destroy(gameObject);
+        if (hasWool)
+        {
+            hasWool = false;
+
+            renderer.material.color = Color.white * 0.5f;
+
+            StartCoroutine(GrowWool());
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private IEnumerator GrowWool()
+    {
+        yield return new WaitForSeconds(growWoolTime);
+
+        hasWool = true;
+
+        renderer.material.color = Color.white;
     }
 
     public void WolfInteraction()
