@@ -177,6 +177,7 @@ MonoBehaviour:
   sheepPrefab: {fileID: 1731347661226254, guid: c0c8e84af2438ff4f9abd59572a0554e,
     type: 2}
   herd: {fileID: 231218021}
+  deathInChildBirth: 50
   distanceToBorder: 0.2
   amount: 25
   randomSpawnMedian: 1

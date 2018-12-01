@@ -44,8 +44,6 @@ public class SheepManager : MonoBehaviour
     [Range(0.1f, 10.0f)]
     public float neighborDist = 2.0f;
 
-    private Vector2 targetPosition = Vector2.zero;
-
     private float magicMotivationCounter = 0;
     #endregion
 
@@ -81,26 +79,15 @@ public class SheepManager : MonoBehaviour
             sheeps[i].GetComponent<Sheep>().StartCoroutine(sheeps[i].GetComponent<Sheep>().GetPregnant());
             numOfPregnantSheeps++;
         }
-
-		/*if(spawnTimer > 0) {
-			spawnTimer -= Time.deltaTime;
-		}else {
-			spawnTimer = randomSpawnMedian + Random.Range(-1, 1) * randomSpawnVariance * randomSpawnMedian;
-			/*GameObject randomSheep = sheeps[Random.Range(0, sheeps.Count)];
-			Sheep sheep = randomSheep.GetComponent("Sheep") as Sheep;
-
-			if(sheep != null) {
-				sheep.GiveBirth(randomSheep.transform.position);
-			}*/
     }
 
     void Update()
     {
         if(magicMotivationCounter <= 0)
         {
-            magicMotivationCounter = Random.Range(4, 10);
-            int movementMotivation = Random.Range(0, 20);
-            if (movementMotivation == 19)
+            magicMotivationCounter = Random.Range(5, 15);
+            int movementMotivation = Random.Range(0, 2);
+            if (movementMotivation == 1)
             {
                 chooseNewTarget();
             }
@@ -109,7 +96,6 @@ public class SheepManager : MonoBehaviour
         {
             magicMotivationCounter -= Time.deltaTime;
         }
-        
     }
 
     private int randomCoordinate(int maxSize)
@@ -122,24 +108,12 @@ public class SheepManager : MonoBehaviour
         return instance;
     }
 
-    public Vector2 getTargetPosition()
-    {
-        return targetPosition;
-    }
-
     private void chooseNewTarget()
     {
-        targetPosition = new Vector2(Random.Range(-x_maxSize, x_maxSize + 1), Random.Range(-y_maxSize, y_maxSize + 1));
+        Vector2 targetPosition = new Vector2(Random.Range(-x_maxSize, x_maxSize + 1), Random.Range(-y_maxSize, y_maxSize + 1));
         foreach(GameObject sheep in sheeps)
         {
-            sheep.GetComponent<Sheep>().setTarget();
+            sheep.GetComponent<Sheep>().setTarget(targetPosition);
         }
-        StartCoroutine("DeleteSheepTarget");
-    }
-
-    IEnumerator DeleteSheepTarget()
-    {
-        yield return new WaitForSeconds(5);
-        targetPosition = Vector2.zero;
     }
 }

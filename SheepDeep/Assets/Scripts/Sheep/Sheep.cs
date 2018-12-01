@@ -19,11 +19,13 @@ public class Sheep : MonoBehaviour
     private int stepCount = 0;
     private int noStepCount = 0;
 
-    private float movementCooldown = 0;
-
     float noiseOffset;
 
     public float animationSpeedVariation = 0.2f;
+
+    private float targetIsActive = 0;
+    private Vector2 targetPosition;
+    private Vector2 estimatedVelocity;
 
     // Use this for initialization
     void Start()
@@ -49,15 +51,11 @@ public class Sheep : MonoBehaviour
 
     private void Move()
     {
-        /*if (movementCooldown <= 0)
+        if (targetIsActive > 0)
         {
-            //movementCooldown = 1;
+            targetIsActive -= Time.deltaTime;
+            rigidbody.velocity += (targetPosition - (Vector2)transform.position).normalized * 0.1f;
         }
-        else
-        {
-            movementCooldown -= Time.deltaTime;
-            return;
-        }*/
 
         int randomDirection;
         if (stepCount > 30)
@@ -68,7 +66,6 @@ public class Sheep : MonoBehaviour
         {
             randomDirection = Random.Range(noStepCount > 10 ? 1 : 0, 5);
         }
-
         switch (randomDirection)
         {
             case 1:
@@ -171,16 +168,16 @@ public class Sheep : MonoBehaviour
         Debug.Log("New Sheep");
     }
 
-    public void setTarget()
+    public void setTarget(Vector2 targetPosition)
     {
-        StopCoroutine("DelayTargetSet");
-        StartCoroutine("DelayTargetSet");
+        StartCoroutine("DelayTargetSet", targetPosition);
     }
 
-    IEnumerator DelayTargetSet()
+    IEnumerator DelayTargetSet(Vector2 targetPosition)
     {
-        yield return new WaitForSeconds(Random.Range(0f, 10f));
-        rigidbody.velocity += (manager.getTargetPosition() - (Vector2)transform.position).normalized * 0.1f;
+        yield return new WaitForSeconds(Random.Range(0f, 2f));
+        this.targetPosition = targetPosition;
+        targetIsActive = Random.Range(3f, 8f);
     }
 
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -241,7 +238,6 @@ public class Sheep : MonoBehaviour
             ownVelocity += obj.GetComponent<Sheep>().GetVelocity();
         }
         ownVelocity *= 1.0f / (sheepCounter + 2);
-        Debug.Log(ownVelocity);
         return ownVelocity;
     }
 
