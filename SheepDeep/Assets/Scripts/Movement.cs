@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Movement : MonoBehaviour {
 
+    private Animator animator;
+
     private Rigidbody2D rb;
 
     private Player player;
@@ -23,6 +25,7 @@ public class Movement : MonoBehaviour {
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
         player = GetComponent<Player>();
+        animator = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -46,9 +49,22 @@ public class Movement : MonoBehaviour {
 
     void HandleMovement()
     {
-        movementDirection = Vector3.up * verticalVelocity + Vector3.right * horizontalVelocity;
+        movementDirection = Vector3.up * verticalVelocity / 1.5f + Vector3.right * horizontalVelocity;
         rb.velocity = movementDirection * speed;
 
+        Vector3 direction = Vector3.up * verticalVelocity + Vector3.right * horizontalVelocity;
+
+        if (direction.magnitude > 0.1)
+        {
+
+            animator.SetFloat("Horizontal", movementDirection.x);
+            animator.SetFloat("Vertical", movementDirection.y);
+            animator.speed = (Vector3.up * verticalVelocity + Vector3.right * horizontalVelocity).magnitude;
+        }
+        else
+        {
+            animator.speed = 0;
+        }
         SetPlayerHeading();
     }
 
