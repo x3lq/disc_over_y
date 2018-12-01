@@ -14,16 +14,6 @@ public class SheepManager : MonoBehaviour
     public GameObject herd;
     //public GameObject deathTimer;
 
-	private static SheepManager instance;
-	public List<GameObject> sheeps;
-    public static int numOfPregnantSheeps = 0;
-    public static int numOfPregnantSheepsAllowed = 5;
-	//anchor point is bottom left
-	public int x_maxSize, y_maxSize;
-	public GameObject sheepPrefab; 
-	public GameObject herd;
-    //public GameObject deathTimer;
-
     public static float newBornSpawnPositionOffset = 0.3f;
     public static float getPregnantUpperTime = 10.0f;
     public static float getPregnantLowerTime = 1.0f;
