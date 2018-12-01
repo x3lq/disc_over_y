@@ -34,11 +34,14 @@ public class Movement : MonoBehaviour {
 
     void HandleInputs()
     {
-        horizontalInput = -Input.GetAxis("HorizontalP" + player.playerID);
-        verticalInput = Input.GetAxis("VerticalP" + player.playerID);
+        if (player != null)
+        {
+            horizontalInput = -Input.GetAxis("HorizontalP" + player.playerID);
+            verticalInput = Input.GetAxis("VerticalP" + player.playerID);
 
-        horizontalVelocity = horizontalInput;
-        verticalVelocity = verticalInput;
+            horizontalVelocity = horizontalInput;
+            verticalVelocity = verticalInput;
+        }
     }
 
     void HandleMovement()
