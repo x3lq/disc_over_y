@@ -55,7 +55,10 @@ public class CameraBehavior : MonoBehaviour {
 
         foreach (Player player in playerObjects)
         {
-            float distance = (centerOfPlayers - player.transform.position).magnitude;
+            Vector2 centerAdjusted = new Vector2(centerOfPlayers.x * 9 / 16, centerOfPlayers.y);
+            Vector2 positionAdjusted = new Vector2(player.transform.position.x * 9 / 16, player.transform.position.y);
+
+            float distance = (centerAdjusted - positionAdjusted).magnitude;
             if (distance > biggestDistance)
             {
                 biggestDistance = distance;
