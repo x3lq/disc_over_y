@@ -37,5 +37,9 @@ public class Shepherd : Player {
         {
             collider.GetComponent<Sheep>().SheppardInteraction();
         }
+
+        if(collider != null && collider.tag.Equals("Wolf")) {
+            collider.GetComponent<Wolf>().SheppardInteraction();
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Wolf : Player {
 
@@ -36,5 +37,12 @@ public class Wolf : Player {
         {
             collider.GetComponent<Sheep>().WolfInteraction();
         }
+
+
+    }
+
+    public void SheppardInteraction() {
+        Debug.Log("Wolf died");
+        SceneManager.LoadScene(3);
     }
 }
