@@ -12,6 +12,8 @@ public class Player : MonoBehaviour {
 
     public bool movementEnabled = true;
 
+    public bool isWolf = false;
+
 	// Use this for initialization
 	void Start () {
 		

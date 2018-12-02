@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSelector : MonoBehaviour {
+public class PlayerSelector : MonoBehaviour
+{
 
     public int maxPlayers = 4;
 
@@ -10,30 +11,34 @@ public class PlayerSelector : MonoBehaviour {
 
     public GameObject redShepherdPrefab, blueShepherdPrefab, greenShepherdPrefab, wolfPrefab;
 
-    public float spawnFieldSize;
+    public Vector2 spawnFieldSize;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         AddPlayersToScene();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        spawnFieldSize = new Vector2(SheepManager.x_maxSize * (1 - SheepManager.distanceToBorder), SheepManager.y_maxSize * (1 - SheepManager.distanceToBorder)) / 2f;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     void AddPlayersToScene()
     {
         CameraBehavior.playerObjects = new List<Player>();
 
-        int wolfPlayerID = Random.Range(1,maxPlayers+1);
-        while (!activePlayers.Contains(wolfPlayerID)){
-            wolfPlayerID = Random.Range(1, maxPlayers+1);
+        int wolfPlayerID = Random.Range(1, maxPlayers + 1);
+        while (!activePlayers.Contains(wolfPlayerID))
+        {
+            wolfPlayerID = Random.Range(1, maxPlayers + 1);
         }
 
         int shepherdCount = 0;
 
-        for(int i=1; i<=maxPlayers; i++)
+        for (int i = 1; i <= maxPlayers; i++)
         {
             if (!activePlayers.Contains(i)) { continue; }
 
@@ -41,6 +46,7 @@ public class PlayerSelector : MonoBehaviour {
             if (wolfPlayerID == i)
             {
                 newPlayer = Instantiate(wolfPrefab).GetComponent<Player>();
+                newPlayer.isWolf = true;
             }
             else
             {
@@ -77,6 +83,15 @@ public class PlayerSelector : MonoBehaviour {
 
     void SetSpawnPosition(Player player)
     {
-        player.transform.position = new Vector2(Random.Range(-spawnFieldSize, spawnFieldSize), Random.Range(-spawnFieldSize, spawnFieldSize));
+        if (player.isWolf)
+        {
+            player.transform.position = new Vector2(Random.Range(-spawnFieldSize.x, spawnFieldSize.x), Random.Range(-spawnFieldSize.y, spawnFieldSize.y));
+        }
+        else
+        {
+            float x_pos = ((player.playerID % 2) * 2 - 1) * spawnFieldSize.x;
+            float y_pos = ((player.playerID / 2) * 2 - 1) * spawnFieldSize.y;
+            player.transform.position = new Vector2(x_pos, y_pos);
+        }
     }
 }

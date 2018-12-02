@@ -9,7 +9,7 @@ public class SheepManager : MonoBehaviour
     public static int numOfPregnantSheeps = 0;
     public static int numOfPregnantSheepsAllowed = 5;
     //anchor point is bottom left
-    public int x_maxSize, y_maxSize;
+    public static int x_maxSize, y_maxSize;
     public GameObject sheepPrefab;
     public GameObject herd;
     //public GameObject deathTimer;
@@ -24,7 +24,7 @@ public class SheepManager : MonoBehaviour
     public float deathInChildBirth = 5.0f;
 
     [Range(0, 0.9f)]
-    public float distanceToBorder;
+    public static float distanceToBorder;
     public int amount;
 
     public int randomSpawnMedian;
@@ -39,14 +39,14 @@ public class SheepManager : MonoBehaviour
     public float velocityVariation = 0.5f;
 
     [Range(0.1f, 20.0f)]
-    public float rotationCoeff = 4.0f;
+    public static float rotationCoeff = 4.0f;
 
     [Range(0.1f, 10.0f)]
     public float neighborDist = 2.0f;
 
     private float magicMotivationCounter = 0;
     private Vector2 latestTarget = Vector2.zero;
-    public float minimumTargetDistance = 10;
+    public static float minimumTargetDistance = 10;
     #endregion
 
     void Awake()
