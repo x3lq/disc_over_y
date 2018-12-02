@@ -11,6 +11,8 @@ public class FinishScreen : MonoBehaviour {
 	private ArrayList topTen;
 	public GameObject sheppardWinKill, sheppardWinPopulation, wolfWin;
 	public GameObject highScoreListPrefab, HighScoreList, highScoreInputList, highscoreTitle, highScoreImage;
+
+	public GameObject uiImageBorn, uiTextBorn, uiImageDead, uiTextDead;
 	private HighScoreManager.HighScoreType highScoreType;
 
 	public Sprite sheep, wolf;
@@ -20,6 +22,8 @@ public class FinishScreen : MonoBehaviour {
 		public bool populationWin, shepparWin;
 		public int winnerId;
 		public int elapsedTime;
+
+		public int born, bites;
 	}
 
 	void Awake()
@@ -46,12 +50,15 @@ public class FinishScreen : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (startPressed && Input.GetKeyDown("joystick " + winner.winnerId + " button 7"))
+		if (Input.GetKeyDown("joystick " + 1 + " button 7") || 
+		Input.GetKeyDown("joystick " + 2 + " button 7") || 
+		Input.GetKeyDown("joystick " + 3 + " button 7") ||
+		Input.GetKeyDown("joystick " + 4 + " button 7"))
         {
-			HighScoreManager.HighScoreObject newHighScore = new HighScoreManager.HighScoreObject();
-			newHighScore.name = name;
-			newHighScore.elapsedtime = winner.elapsedTime;
-			highScoreManager.insertIntoTable(newHighScore, highScoreType);
+			//HighScoreManager.HighScoreObject newHighScore = new HighScoreManager.HighScoreObject();
+			//newHighScore.name = name;
+			//newHighScore.elapsedtime = winner.elapsedTime;
+			//highScoreManager.insertIntoTable(newHighScore, highScoreType);
             SceneManager.LoadScene(0);
         }
 	}
@@ -123,7 +130,7 @@ public class FinishScreen : MonoBehaviour {
 	public void onAnimationEnd() {
 		Debug.Log("Animation End");
 
-		if(topTen.Count < 10 ) {
+		/* if(topTen.Count < 10 ) {
 			highScoreInputList.SetActive(true);
 			showHighScore(this.name);
 		}else {
@@ -144,7 +151,15 @@ public class FinishScreen : MonoBehaviour {
 
 		selectHighScoreImage();
 		highscoreTitle.SetActive(true);
-		highScoreImage.SetActive(true);
+		highScoreImage.SetActive(true);*/
+		uiTextBorn.GetComponent<Text>().text = "" + winner.born;
+		uiImageDead.GetComponent<Text>().text = "" + winner.bites;
+
+		uiImageBorn.SetActive(true);
+		uiTextBorn.SetActive(true);
+		uiImageDead.SetActive(true);
+		uiTextDead.SetActive(true);
+
 	}
 
 	private void selectHighScoreImage() {
