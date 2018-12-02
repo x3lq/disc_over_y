@@ -24,6 +24,11 @@ public class Shepherd : Player {
         {
             TriggerInteraction();
         }
+        if (Input.GetKeyDown("joystick " + playerID + " button 1"))
+        {
+            Debug.Log("Call");
+            callSheep();
+        }
     }
 
     void TriggerInteraction()
