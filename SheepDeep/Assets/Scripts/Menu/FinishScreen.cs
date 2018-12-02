@@ -16,7 +16,7 @@ public class FinishScreen : MonoBehaviour {
 	public Sprite sheep, wolf;
 	private bool startPressed = false;
 	private string name = "";
-	public struct WinType {
+	public class WinType {
 		public bool populationWin, shepparWin;
 		public int winnerId;
 		public int elapsedTime;
@@ -29,12 +29,7 @@ public class FinishScreen : MonoBehaviour {
 	
 	}
 	void Start () {
-		//TODO get winner from GameManagerInstance
-		WinType win = new WinType();
-		win.populationWin = true;
-		win.shepparWin = true;
-		win.winnerId = 1;
-		winner = win;
+		winner = GameLoop.winType;
 
 		if(winner.shepparWin) {
 			if(winner.populationWin) {
@@ -51,7 +46,6 @@ public class FinishScreen : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log(startPressed);
 		if (startPressed && Input.GetKeyDown("joystick " + winner.winnerId + " button 7"))
         {
 			HighScoreManager.HighScoreObject newHighScore = new HighScoreManager.HighScoreObject();
