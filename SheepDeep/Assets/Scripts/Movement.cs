@@ -56,9 +56,8 @@ public class Movement : MonoBehaviour {
 
     void HandleMovement()
     {
-        if (player != null && !player.movementEnabled)
+        if (player != null && !player.movementEnabled || !enableMovement)
         {
-            Debug.Log("No Movement");
             movementDirection = Vector2.zero;
             rb.velocity = Vector2.zero;
             return;
