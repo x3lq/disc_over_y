@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Diagnostics;
-using System.Threading;
 using UnityEngine.UI;
 
 public class GameLoop : MonoBehaviour {
@@ -24,7 +23,7 @@ public class GameLoop : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		int numberOfSheeps = SheepManager.GetManager().sheeps.Count;
-
+		UnityEngine.Debug.Log(numberOfSheeps);
 		if(numberOfSheeps >= shepartWin) {
 			shepartWins();
 		}
