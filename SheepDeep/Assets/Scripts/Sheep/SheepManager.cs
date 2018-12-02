@@ -86,11 +86,7 @@ public class SheepManager : MonoBehaviour
         if(magicMotivationCounter <= 0)
         {
             magicMotivationCounter = Random.Range(5, 15);
-            int movementMotivation = Random.Range(0, 2);
-            if (movementMotivation == 1)
-            {
-                chooseNewTarget();
-            }
+            chooseNewTarget();
         }
         else
         {
