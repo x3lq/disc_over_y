@@ -64,7 +64,7 @@ public class Shepherd : Player {
     {
         movementEnabled = true;
         animator.Play("Movement");
-        
+        GameLoop.getInstance().shepherdBirth++;
         motherSheep.GiveBirth(motherSheep.transform.position);
 
         motherSheep = null;
