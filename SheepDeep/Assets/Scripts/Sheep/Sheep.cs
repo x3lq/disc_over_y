@@ -61,7 +61,7 @@ public class Sheep : MonoBehaviour
         if (isFleeing)
         {
             flee();
-            if (fleeTime < 0)
+            if (fleeTime > 0)
             {
                 fleeTime -= Time.deltaTime;
             }
@@ -315,6 +315,7 @@ public class Sheep : MonoBehaviour
     {
         fleePosition = position;
         fleeTime = 2;
+        isFleeing = true;
     }
 
     public void Death()
