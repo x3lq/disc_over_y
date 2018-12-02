@@ -15,23 +15,26 @@ public class Sheep : MonoBehaviour
 
     public bool hasWool;
     public bool hasBaby;
-    public float getPregnantTime;
-    GameObject deathTimer;
 
+    //GameObject deathTimer;
+    public float getPregnantTime;
     public float growWoolTime;
+    private float targetIsActive = 0;
 
     private int stepCount = 0;
     private int noStepCount = 0;
+
+    private bool isAlive = true;
     private bool isResting = false;
     private bool isRunning = false;
+    private bool isBeingSheared = false;
 
     float noiseOffset;
-
     public float animationSpeedVariation = 0.2f;
 
-    private float targetIsActive = 0;
     private Vector2 targetPosition;
     private Vector2 estimatedVelocity = new Vector2();
+    private Vector2 fleePosition = new Vector2();
 
     private Coroutine deathCoroutine;
 
@@ -57,7 +60,7 @@ public class Sheep : MonoBehaviour
 
     private void Move()
     {
-        if (isRunning)
+        if (isRunning && !hasBaby && !isBeingSheared && isAlive)
         {
             if (targetIsActive > 0)
             {
@@ -72,7 +75,7 @@ public class Sheep : MonoBehaviour
         }
         else
         {
-            if (isResting)
+            if (isResting || hasBaby || isBeingSheared || !isAlive)
             {
                 movement.horizontalVelocity = 0;
                 movement.verticalVelocity = 0;
@@ -124,26 +127,26 @@ public class Sheep : MonoBehaviour
 
     public bool SheppardInteraction()
     {
-        //pregnant sheeps cant lose wool
         if (hasBaby)
         {
             hasBaby = false;
             SheepManager.numOfPregnantSheeps--;
             animator.Play("Movement");
-            //TODO stop movement of pregnant sheep
+            
             StopCoroutine(deathCoroutine);
 
             deathCoroutine = null;
-            if (deathTimer != null) Destroy(deathTimer);
+            //if (deathTimer != null) Destroy(deathTimer);
             return true;
         }
 
         if (hasWool)
         {
+            isBeingSheared = true;
             hasWool = false;
 
             animator.Play("Shear");
-
+            isBeingSheared = false;
             return true;
         }
         else
@@ -155,12 +158,12 @@ public class Sheep : MonoBehaviour
     private void GrowWool()
     {
         hasWool = true;
-
         animator.Play("Movement");
     }
 
     public void WolfInteraction()
     {
+        isAlive = false;
         animator.Play("Death");
         GetComponent<BoxCollider2D>().enabled = false;
     }
