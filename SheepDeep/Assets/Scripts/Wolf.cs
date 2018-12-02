@@ -7,6 +7,9 @@ public class Wolf : Player {
 
     private Animator animator;
 
+    public float cooldownTime;
+    public float timer;
+
 	// Use this for initialization
 	void Start () {
         animator = GetComponent<Animator>();
@@ -17,11 +20,13 @@ public class Wolf : Player {
 	// Update is called once per frame
 	void Update () {
         HandleInputs();
+
+        timer -= Time.deltaTime;
 	}
 
     void HandleInputs()
     {
-        if (Input.GetKeyDown("joystick " + playerID + " button 0"))
+        if (timer <= 0 && Input.GetKeyDown("joystick " + playerID + " button 0"))
         {
             TriggerInteraction();
         }
@@ -39,6 +44,7 @@ public class Wolf : Player {
 
         if (collider != null && collider.tag.Equals("Sheep"))
         {
+            timer = cooldownTime;
             AudioManager.PlayWolfAttack();
 
             collider.GetComponent<Sheep>().WolfInteraction();

@@ -30,6 +30,7 @@ public class GameLoop : MonoBehaviour {
 		int numberOfSheeps = SheepManager.GetManager().sheeps.Count;
 		UnityEngine.Debug.Log(numberOfSheeps);
 		if(numberOfSheeps >= shepartWin) {
+            AudioManager.PlayShepherdWins();
 			shepartWins();
 		}
 
@@ -62,7 +63,8 @@ public class GameLoop : MonoBehaviour {
 
 	public static void wolfCaught() {
 		stopwatch.Stop();
-		winType = new FinishScreen.WinType();
+        AudioManager.PlayWolfCaught();
+        winType = new FinishScreen.WinType();
 		winType.shepparWin = true;
 		winType.populationWin = false;
 		winType.elapsedTime = stopwatch.Elapsed.Seconds;
@@ -74,7 +76,7 @@ public class GameLoop : MonoBehaviour {
 	IEnumerator transitionToHighScore() {
 
 		while(faderImage.color.a < 0.98) {
-			float a = faderImage.color.a + Time.deltaTime;
+			float a = faderImage.color.a + Time.deltaTime/3;
 			faderImage.color = new Color(0, 0, 0, a);
 			yield return null;
 		}

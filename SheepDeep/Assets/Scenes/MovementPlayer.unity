@@ -138,7 +138,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 680c2bbd4fd1f7c4398f20f2833fbac5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 1ea6d9f098a01554dad59752e69d1058, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -235,7 +235,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &82362168
 GameObject:
@@ -1224,7 +1224,7 @@ RectTransform:
   - {fileID: 1719485072}
   - {fileID: 1647277633}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1562,7 +1562,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1200377102
 GameObject:
@@ -2048,7 +2048,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1647277632
 GameObject:
@@ -2789,11 +2789,42 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ed76a5f05aeda6a4b9e840193f704563, type: 3}
   birthSheepClips:
   - {fileID: 8300000, guid: 393434caf2a36cb459cf455bc75cc1ae, type: 3}
+  - {fileID: 8300000, guid: d29f55b0ece970c469ef81ba46d2acbc, type: 3}
+  - {fileID: 8300000, guid: 7683eadcc741e0741a6df69f5c173c9e, type: 3}
+  - {fileID: 8300000, guid: 15f2e1b475c826d478fa900ca0333e35, type: 3}
+  - {fileID: 8300000, guid: a98cd706bc50e844180ed198d6ddec83, type: 3}
+  - {fileID: 8300000, guid: af6cfba2c1badbf48bff6a553ad5b1d4, type: 3}
+  - {fileID: 8300000, guid: eeaf9e9656e2a6f47a132eddf66a4b18, type: 3}
+  - {fileID: 8300000, guid: 26bfeb435d97e084abec86e2f5ef47ab, type: 3}
+  - {fileID: 8300000, guid: 0a439f0c0dac8344c88aa233f9e5d372, type: 3}
   sheepDyingClips:
   - {fileID: 8300000, guid: 1e0e764cc4a2b054186b93e6167036fa, type: 3}
+  - {fileID: 8300000, guid: d895f23212d20664190a58c85d2da3ef, type: 3}
+  - {fileID: 8300000, guid: ed76a5f05aeda6a4b9e840193f704563, type: 3}
   shaverClips:
   - {fileID: 8300000, guid: 693eb528989212445a733927367d00d4, type: 3}
   weirdClips: []
+  randomSheepNoises:
+  - {fileID: 8300000, guid: 51fe5ddedf783cc43b8ae6982897e0b5, type: 3}
+  - {fileID: 8300000, guid: a2b26c6c22919394d89a55f689ff76c6, type: 3}
+  - {fileID: 8300000, guid: 06dfe094cef83784a836357adbd74076, type: 3}
+  - {fileID: 8300000, guid: cd270e67c3e80764ea38fa721ae0ab7b, type: 3}
+  - {fileID: 8300000, guid: 2e9961d13290a4e46bb1a868a6111588, type: 3}
+  - {fileID: 8300000, guid: 41b32dec767d68f4eae85c4e10f7cbcc, type: 3}
+  - {fileID: 8300000, guid: 228a77a47419975498768a2bb3fbf478, type: 3}
+  - {fileID: 8300000, guid: d3859d0160ecdbd4096348584edb2545, type: 3}
+  - {fileID: 8300000, guid: d8e2bca4be47be34aa9f03f414141020, type: 3}
+  - {fileID: 8300000, guid: 7d6c241d51f8d264ca494f8b86e85d54, type: 3}
+  - {fileID: 8300000, guid: 695e7600de0bf8446b6781f98477e326, type: 3}
+  - {fileID: 8300000, guid: b061e93e079190a42bba3ff36648077b, type: 3}
+  - {fileID: 8300000, guid: a9ce10d7ac758224c9779310a658797a, type: 3}
+  shepherdsWin:
+  - {fileID: 8300000, guid: da02613b60088e3419f5dba4ba509add, type: 3}
+  wolfCaughtClips:
+  - {fileID: 8300000, guid: f179f8beb8602bd4b8b8db1344eae353, type: 3}
+  - {fileID: 8300000, guid: b3f10e817cb9dbe458aa2c7a96c6f3a6, type: 3}
+  - {fileID: 8300000, guid: 0fd1710371057c54fa2ec3e36c601a67, type: 3}
+  - {fileID: 8300000, guid: 244f39ab2290d7d4d8136e556ae9d4de, type: 3}
 --- !u!4 &1995018353
 Transform:
   m_ObjectHideFlags: 0
@@ -2805,7 +2836,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2040041037
 GameObject:
