@@ -11,7 +11,7 @@ public class Sheep : MonoBehaviour
     private Renderer renderer;
     private Rigidbody2D rigidbody;
     private SheepManager manager;
-    private Movement walkAnimationHandler;
+    private Movement movement;
 
     public bool hasWool;
     public bool hasBaby;
@@ -42,7 +42,7 @@ public class Sheep : MonoBehaviour
         renderer = GetComponent<Renderer>();
         rigidbody = GetComponent<Rigidbody2D>();
         manager = FindObjectOfType<SheepManager>();
-        walkAnimationHandler = GetComponent<Movement>();
+        movement = GetComponent<Movement>();
 
         noiseOffset = Random.value * 10.0f;
 
@@ -74,12 +74,14 @@ public class Sheep : MonoBehaviour
         {
             if (isResting)
             {
+                movement.horizontalVelocity = 0;
+                movement.verticalVelocity = 0;
                 return;
             }
         }
 
         int randomDirection;
-        if (stepCount > 30)
+        if (stepCount > 300)
         {
             randomDirection = 0;
         }
@@ -115,9 +117,9 @@ public class Sheep : MonoBehaviour
                 noStepCount++;
                 break;
         }
-        Vector2 smoothedVelocity = Vector2.Lerp(rigidbody.velocity, estimatedVelocity, Time.deltaTime);
-        walkAnimationHandler.horizontalVelocity = smoothedVelocity.x;
-        walkAnimationHandler.verticalVelocity = smoothedVelocity.y;
+        Vector2 smoothedVelocity = Vector2.Lerp(rigidbody.velocity, estimatedVelocity, Time.deltaTime).normalized;
+        movement.horizontalVelocity = smoothedVelocity.x;
+        movement.verticalVelocity = smoothedVelocity.y;
     }
 
     public bool SheppardInteraction()
@@ -261,7 +263,7 @@ public class Sheep : MonoBehaviour
             if (col.gameObject == gameObject || !col.tag.Equals("Sheep")) continue;
             GameObject obj = col.gameObject;
             sheepCounter++;
-            ownVelocity += obj.GetComponent<Sheep>().GetVelocity();
+            ownVelocity += obj.GetComponent<Movement>().GetVelocity();
         }
         ownVelocity *= 1.0f / (sheepCounter + 2);
         return ownVelocity;
