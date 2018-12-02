@@ -33,6 +33,7 @@ public class PlayerSelector : MonoBehaviour {
         for(int i=1; i<= maxPlayers; i++){
 		    if(Input.GetKeyDown("joystick " + i + " button 7")) {
                 startGame();
+                break;
             }
         }
 
@@ -56,6 +57,11 @@ public class PlayerSelector : MonoBehaviour {
             }
         }
 
+        if(i < 2)
+        {
+            return;
+        }
+
         if(active[0]) {
             PlayerObject one = new PlayerObject();
             one.playerID = 1;
@@ -70,13 +76,13 @@ public class PlayerSelector : MonoBehaviour {
 
         if(active[2]) {
             PlayerObject one = new PlayerObject();
-            one.playerID = 2;
+            one.playerID = 3;
             activePlayers.Add(one);
         }
 
         if(active[3]) {
             PlayerObject one = new PlayerObject();
-            one.playerID = 3;
+            one.playerID = 4;
             activePlayers.Add(one);
         }
 

@@ -388,11 +388,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 335959935}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65888ad18e9d2e944bc95d1753d5b4af, type: 3}
+  m_Script: {fileID: 11500000, guid: 21718c3804ade84459dcdfeb52d23732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxPlayers: 4
-  activePlayers: 01000000020000000300000004000000
   redShepherdPrefab: {fileID: 1100466993660152, guid: efdee7f2b33175047bbea4ad794bccf4,
     type: 2}
   blueShepherdPrefab: {fileID: 1087919503795352, guid: f8bbf374d89149947be0b80bab422a44,
@@ -400,7 +399,7 @@ MonoBehaviour:
   greenShepherdPrefab: {fileID: 1755198923189326, guid: c170c3f262455084e8e9ad46d8e50b26,
     type: 2}
   wolfPrefab: {fileID: 1847392462612000, guid: 4ad93b1b8ebc2514ab964db50f583f1e, type: 2}
-  spawnFieldSize: 2
+  spawnFieldSize: 0
 --- !u!4 &335959937
 Transform:
   m_ObjectHideFlags: 0
