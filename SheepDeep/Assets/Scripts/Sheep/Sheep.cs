@@ -28,6 +28,9 @@ public class Sheep : MonoBehaviour
     private bool isResting = false;
     private bool isRunning = false;
     private bool isBeingSheared = false;
+    private bool isFleeing = false;
+
+    private float fleeTime = 2;
 
     float noiseOffset;
     public float animationSpeedVariation = 0.2f;
@@ -55,7 +58,22 @@ public class Sheep : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if (isFleeing)
+        {
+            flee();
+            if (fleeTime < 0)
+            {
+                fleeTime -= Time.deltaTime;
+            }
+            else
+            {
+                isFleeing = false;
+            }
+        }
+        else
+        {
+            Move();
+        }
     }
 
     private void Move()
@@ -125,6 +143,13 @@ public class Sheep : MonoBehaviour
         movement.verticalVelocity = smoothedVelocity.y;
     }
 
+    private void flee()
+    {
+        Vector2 velocity = ((Vector2)transform.position - fleePosition).normalized;
+        movement.horizontalVelocity = velocity.x;
+        movement.verticalVelocity = velocity.y;
+    }
+
     public bool SheppardInteraction()
     {
         if (hasBaby)
@@ -165,6 +190,7 @@ public class Sheep : MonoBehaviour
     public void WolfInteraction()
     {
         isAlive = false;
+        SheepManager.numOfPregnantSheeps--;
         animator.Play("Death");
         GetComponent<BoxCollider2D>().enabled = false;
     }
@@ -208,7 +234,7 @@ public class Sheep : MonoBehaviour
 
     private IEnumerator DeathInChildBirth()
     {
-        yield return new WaitForSeconds(SheepManager.GetManager().deathInChildBirth);SheepManager.GetManager().sheeps.Remove(gameObject);
+        yield return new WaitForSeconds(SheepManager.GetManager().deathInChildBirth); SheepManager.GetManager().sheeps.Remove(gameObject);
         SheepManager.numOfPregnantSheeps--;
         animator.Play("Death");
         GetComponent<BoxCollider2D>().enabled = false;
@@ -283,6 +309,12 @@ public class Sheep : MonoBehaviour
     public void setTarget(Vector2 targetPosition)
     {
         StartCoroutine("DelayTargetSet", targetPosition);
+    }
+
+    public void setFleePosition(Vector2 position)
+    {
+        fleePosition = position;
+        fleeTime = 2;
     }
 
     public void Death()

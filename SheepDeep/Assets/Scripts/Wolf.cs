@@ -63,6 +63,7 @@ public class Wolf : Player {
     {
         Debug.Log("Finished");
         animator.Play("Movement");
+        GameLoop.getInstance().wolfBites++;
         movementEnabled = true;
     }
 }

@@ -54,6 +54,18 @@ public class Shepherd : Player {
         }
     }
 
+    private void callSheep()
+    {
+        Collider2D[] objects = Physics2D.OverlapCircleAll(transform.position, 5);
+        foreach(Collider2D coll in objects)
+        {
+            if (coll.tag.Equals("Sheep"))
+            {
+                coll.gameObject.GetComponent<Sheep>().setFleePosition(transform.position);
+            }
+        }
+    }
+
     void FinishShear()
     {
         movementEnabled = true;
@@ -64,7 +76,7 @@ public class Shepherd : Player {
     {
         movementEnabled = true;
         animator.Play("Movement");
-        
+        GameLoop.getInstance().shepherdBirth++;
         motherSheep.GiveBirth(motherSheep.transform.position);
 
         motherSheep = null;
