@@ -138,7 +138,7 @@ public class Sheep : MonoBehaviour
                 noStepCount++;
                 break;
         }
-        Vector2 smoothedVelocity = Vector2.Lerp(rigidbody.velocity, estimatedVelocity, Time.deltaTime).normalized;
+        Vector2 smoothedVelocity = Vector2.Lerp(rigidbody.velocity, estimatedVelocity, Time.deltaTime).normalized * Random.Range(0.7f,1.3f);
         movement.horizontalVelocity = smoothedVelocity.x;
         movement.verticalVelocity = smoothedVelocity.y;
     }
@@ -165,11 +165,14 @@ public class Sheep : MonoBehaviour
 
         if (hasWool)
         {
-            isBeingSheared = true;
-            hasWool = false;
-
-            animator.Play("Shear");
-            isBeingSheared = false;
+            animator.Play("Death");
+            movement.enableMovement = false;
+            //AudioManager.PlaySheepShear();
+            //isBeingSheared = true;
+            //hasWool = false;
+            //
+            //animator.Play("Shear");
+            //isBeingSheared = false;
             return true;
         }
         else
@@ -194,6 +197,7 @@ public class Sheep : MonoBehaviour
 
     public void GiveBirth(Vector3 position)
     {
+        AudioManager.PlayBirthSheep();
         hasBaby = false;
         SheepManager.numOfPregnantSheeps--;
         animator.Play("Movement");
@@ -284,7 +288,7 @@ public class Sheep : MonoBehaviour
         if (neighbors.Length <= 1) return ownVelocity;
         int sheepCounter = 0;
 
-        ownVelocity *= 2;
+        ownVelocity *= 1;
 
         foreach (Collider col in neighbors)
         {
@@ -293,7 +297,7 @@ public class Sheep : MonoBehaviour
             sheepCounter++;
             ownVelocity += obj.GetComponent<Movement>().GetVelocity();
         }
-        ownVelocity *= 1.0f / (sheepCounter + 2);
+        ownVelocity *= 1.0f / (sheepCounter + 1);
         return ownVelocity;
     }
 
@@ -315,6 +319,7 @@ public class Sheep : MonoBehaviour
 
     public void Death()
     {
+        AudioManager.PlaySheepDying();
         SheepManager.GetManager().sheeps.Remove(gameObject);
         Destroy(gameObject);
     }

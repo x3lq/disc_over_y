@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 61328220773251492}
   - component: {fileID: 114261474269121794}
   - component: {fileID: 114779540751662320}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wolf
   m_TagString: Wolf
   m_Icon: {fileID: 0}
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalVelocity: 0
   verticalVelocity: 0
+  enableMovement: 1
   speed: 5
 --- !u!114 &114779540751662320
 MonoBehaviour:

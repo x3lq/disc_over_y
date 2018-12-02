@@ -86,7 +86,7 @@ public class PlayerSelector : MonoBehaviour {
             activePlayers.Add(one);
         }
 
-        if(i > 2) {
+        if(i >= 2) {
             int ran = (int) (Random.Range(0, activePlayers.Count));
             activePlayers[ran].color = Color.WOLF;
             SceneManager.LoadScene(2);
