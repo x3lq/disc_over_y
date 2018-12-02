@@ -29,8 +29,13 @@ public class FinishScreen : MonoBehaviour {
 	void Awake()
 	{
 		highScoreManager = new HighScoreManager();
-		topTen = highScoreManager.getHighScores(10, highScoreType);	
-	
+		topTen = highScoreManager.getHighScores(10, highScoreType);
+        //winner = new WinType();
+        //winner.winnerId = 1;
+        //winner.populationWin = true;
+        //winner.elapsedTime = 5;
+        //winner.born = 15;
+        //winner.bites = 10;
 	}
 	void Start () {
 		winner = GameLoop.winType;
@@ -153,13 +158,16 @@ public class FinishScreen : MonoBehaviour {
 		highscoreTitle.SetActive(true);
 		highScoreImage.SetActive(true);*/
 		uiTextBorn.GetComponent<Text>().text = "" + winner.born;
-		uiImageDead.GetComponent<Text>().text = "" + winner.bites;
-
+        uiTextDead.GetComponent<Text>().text = "" + winner.bites;
+        
 		uiImageBorn.SetActive(true);
 		uiTextBorn.SetActive(true);
 		uiImageDead.SetActive(true);
 		uiTextDead.SetActive(true);
 
+        wolfWin.SetActive(false);
+        sheppardWinKill.SetActive(false);
+        sheppardWinPopulation.SetActive(false);
 	}
 
 	private void selectHighScoreImage() {
