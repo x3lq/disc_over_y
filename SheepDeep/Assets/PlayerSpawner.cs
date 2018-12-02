@@ -16,23 +16,26 @@ public class PlayerSpawner : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //AddPlayersToScene();
-
-        Player redPlayer = Instantiate(redShepherdPrefab, transform.position, Quaternion.identity).GetComponent<Player>();
-        redPlayer.playerID = 1;
-
-        Player newPlayer = Instantiate(wolfPrefab, transform.position + new Vector3(5, 5), Quaternion.identity).GetComponent<Player>();
-        newPlayer.playerID = 2;
-
-        CameraBehavior.playerObjects = new List<Player>();
-        CameraBehavior.playerObjects.Add(newPlayer);
-        CameraBehavior.playerObjects.Add(redPlayer);
+        AddPlayersToScene();
+        //
+        //Player redPlayer = Instantiate(redShepherdPrefab, transform.position, Quaternion.identity).GetComponent<Player>();
+        //redPlayer.playerID = 1;
+        //
+        //Player newPlayer = Instantiate(wolfPrefab, transform.position + new Vector3(5, 5), Quaternion.identity).GetComponent<Player>();
+        //newPlayer.playerID = 2;
+        //
+        //CameraBehavior.playerObjects = new List<Player>();
+        //CameraBehavior.playerObjects.Add(newPlayer);
+        //CameraBehavior.playerObjects.Add(redPlayer);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            AudioManager.PlayBirthShepherd();
+        }
     }
 
     void AddPlayersToScene()
@@ -50,7 +53,7 @@ public class PlayerSpawner : MonoBehaviour
             switch (player.color)
             {
                 case PlayerSelector.Color.WOLF:
-                    Player newPlayer = Instantiate(wolfPrefab, transform.position + new Vector3(10, 10), Quaternion.identity).GetComponent<Player>();
+                    Player newPlayer = Instantiate(wolfPrefab, transform.position + new Vector3(5, 5), Quaternion.identity).GetComponent<Player>();
                     newPlayer.playerID = player.playerID;
                     CameraBehavior.playerObjects.Add(newPlayer);
                     break;
