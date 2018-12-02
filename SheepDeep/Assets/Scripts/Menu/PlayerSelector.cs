@@ -23,7 +23,7 @@ public class PlayerSelector : MonoBehaviour {
     public Sprite[] enabled, disabled;
     public bool[] active = new bool[4];
 
-    public GameObject tutorial;
+    public GameObject tutorial, credits;
 
 	// Use this for initialization
 	void Start () {
@@ -52,6 +52,11 @@ public class PlayerSelector : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             tutorial.SetActive(!tutorial.activeSelf);
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape)) {
+            credits.GetComponent<Animator>().Play("Credits");
+            credits.SetActive(!credits.activeSelf);
         }
 	}
 
