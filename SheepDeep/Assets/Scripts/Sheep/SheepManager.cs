@@ -9,7 +9,7 @@ public class SheepManager : MonoBehaviour
     public static int numOfPregnantSheeps = 0;
     public static int numOfPregnantSheepsAllowed = 5;
     //anchor point is bottom left
-    public static int x_maxSize, y_maxSize;
+    public static int x_maxSize = 8, y_maxSize = 8;
     public GameObject sheepPrefab;
     public GameObject herd;
     //public GameObject deathTimer;
