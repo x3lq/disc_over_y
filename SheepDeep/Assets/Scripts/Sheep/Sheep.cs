@@ -60,7 +60,7 @@ public class Sheep : MonoBehaviour
 
     private void Move()
     {
-        if (isRunning && !hasBaby && !isBeingSheared && isAlive)
+        if (isRunning && hasWool && !hasBaby && !isBeingSheared && isAlive)
         {
             if (targetIsActive > 0)
             {
@@ -75,7 +75,7 @@ public class Sheep : MonoBehaviour
         }
         else
         {
-            if (isResting || hasBaby || isBeingSheared || !isAlive)
+            if (isResting || hasBaby || isBeingSheared || !isAlive || !hasWool)
             {
                 movement.horizontalVelocity = 0;
                 movement.verticalVelocity = 0;
@@ -129,10 +129,8 @@ public class Sheep : MonoBehaviour
     {
         if (hasBaby)
         {
-            hasBaby = false;
-            SheepManager.numOfPregnantSheeps--;
             animator.Play("Movement");
-            
+
             StopCoroutine(deathCoroutine);
 
             deathCoroutine = null;
@@ -170,6 +168,9 @@ public class Sheep : MonoBehaviour
 
     public void GiveBirth(Vector3 position)
     {
+        hasBaby = false;
+        SheepManager.numOfPregnantSheeps--;
+        animator.Play("Movement");
         GameObject newBorn = Instantiate(SheepManager.GetManager().sheepPrefab, position, Quaternion.identity);
         newBorn.transform.parent = SheepManager.GetManager().herd.transform;
         SheepManager.GetManager().sheeps.Add(newBorn);

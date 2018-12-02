@@ -16,7 +16,13 @@ public class PlayerSpawner : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        AddPlayersToScene();
+        //AddPlayersToScene();
+
+        Player redPlayer = Instantiate(redShepherdPrefab, transform.position, Quaternion.identity).GetComponent<Player>();
+        redPlayer.playerID = 1;
+
+        CameraBehavior.playerObjects = new List<Player>();
+        CameraBehavior.playerObjects.Add(redPlayer);
     }
 
     // Update is called once per frame
