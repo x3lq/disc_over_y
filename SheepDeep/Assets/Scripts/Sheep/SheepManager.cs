@@ -15,8 +15,8 @@ public class SheepManager : MonoBehaviour
     //public GameObject deathTimer;
 
     public static float newBornSpawnPositionOffset = 0.3f;
-    public static float getPregnantUpperTime = 10.0f;
-    public static float getPregnantLowerTime = 1.0f;
+    public static float getPregnantUpperTime = 40.0f;
+    public static float getPregnantLowerTime = 20.0f;
 
     public static float growWoolUpperTime = 5.0f;
     public static float growWoolLowerTime = 1.0f;
