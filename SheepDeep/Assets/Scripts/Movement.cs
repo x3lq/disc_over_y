@@ -19,6 +19,8 @@ public class Movement : MonoBehaviour {
 
     private Vector3 movementDirection;
 
+    public bool enableMovement = true;
+
     public float speed;
 
 	// Use this for initialization

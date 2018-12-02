@@ -203,12 +203,10 @@ public class Sheep : MonoBehaviour
 
     private IEnumerator DeathInChildBirth()
     {
-        yield return new WaitForSeconds(SheepManager.GetManager().deathInChildBirth);
-        //deathTimer = Instantiate(SheepManager.GetManager().deathTimer, new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z), Quaternion.identity);
-        SheepManager.GetManager().sheeps.Remove(gameObject);
+        yield return new WaitForSeconds(SheepManager.GetManager().deathInChildBirth);SheepManager.GetManager().sheeps.Remove(gameObject);
         SheepManager.numOfPregnantSheeps--;
-        //Destroy(deathTimer);
-        Destroy(gameObject);
+        animator.Play("Death");
+        GetComponent<BoxCollider2D>().enabled = false;
     }
 
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------
