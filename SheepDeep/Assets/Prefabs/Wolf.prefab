@@ -138,6 +138,9 @@ MonoBehaviour:
   interactionCheckBoxSize: 0.4
   heading: {x: 0, y: 0}
   movementEnabled: 1
+  isWolf: 0
+  cooldownTime: 1
+  timer: 0
 --- !u!212 &212683590174949912
 SpriteRenderer:
   m_ObjectHideFlags: 1
