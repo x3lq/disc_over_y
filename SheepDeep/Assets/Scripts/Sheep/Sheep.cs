@@ -5,23 +5,25 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Movement))]
 [RequireComponent(typeof(Renderer))]
-public class Sheep : MonoBehaviour {
-
+public class Sheep : MonoBehaviour
+{
     private Animator animator;
     private Renderer renderer;
     private Rigidbody2D rigidbody;
     private SheepManager manager;
-    private Movement walkAnimationHandler;
+    private Movement movement;
 
     public bool hasWool;
     public bool hasBaby;
     public float getPregnantTime;
     GameObject deathTimer;
-   
+
     public float growWoolTime;
 
     private int stepCount = 0;
     private int noStepCount = 0;
+    private bool isResting = false;
+    private bool isRunning = false;
 
     float noiseOffset;
 
@@ -31,6 +33,8 @@ public class Sheep : MonoBehaviour {
     private Vector2 targetPosition;
     private Vector2 estimatedVelocity = new Vector2();
 
+    private Coroutine deathCoroutine;
+
     // Use this for initialization
     void Start()
     {
@@ -38,7 +42,7 @@ public class Sheep : MonoBehaviour {
         renderer = GetComponent<Renderer>();
         rigidbody = GetComponent<Rigidbody2D>();
         manager = FindObjectOfType<SheepManager>();
-        walkAnimationHandler = GetComponent<Movement>();
+        movement = GetComponent<Movement>();
 
         noiseOffset = Random.value * 10.0f;
 
@@ -53,14 +57,31 @@ public class Sheep : MonoBehaviour {
 
     private void Move()
     {
-        if (targetIsActive > 0)
+        if (isRunning)
         {
-            targetIsActive -= Time.deltaTime;
-            estimatedVelocity += (targetPosition - (Vector2)transform.position).normalized * 0.1f;
+            if (targetIsActive > 0)
+            {
+                targetIsActive -= Time.deltaTime;
+                estimatedVelocity += (targetPosition - (Vector2)transform.position).normalized * 0.1f;
+            }
+            else
+            {
+                isRunning = false;
+                isResting = Random.Range(0, 10) < 6;
+            }
+        }
+        else
+        {
+            if (isResting)
+            {
+                movement.horizontalVelocity = 0;
+                movement.verticalVelocity = 0;
+                return;
+            }
         }
 
         int randomDirection;
-        if (stepCount > 30)
+        if (stepCount > 300)
         {
             randomDirection = 0;
         }
@@ -72,22 +93,22 @@ public class Sheep : MonoBehaviour {
         {
             case 1:
                 //Move up
-                estimatedVelocity = CalculateCrowdMovement(new Vector2(estimatedVelocity.x, estimatedVelocity.y + 0.1f));
+                estimatedVelocity = CalculateCrowdMovement(new Vector2(estimatedVelocity.x, estimatedVelocity.y + 1));
                 stepCount++;
                 break;
             case 2:
                 //Move right
-                estimatedVelocity = CalculateCrowdMovement(new Vector2(estimatedVelocity.x + 0.1f, estimatedVelocity.y));
+                estimatedVelocity = CalculateCrowdMovement(new Vector2(estimatedVelocity.x + 1, estimatedVelocity.y));
                 stepCount++;
                 break;
             case 3:
                 //Move down
-                estimatedVelocity = CalculateCrowdMovement(new Vector2(estimatedVelocity.x, estimatedVelocity.y - 0.1f));
+                estimatedVelocity = CalculateCrowdMovement(new Vector2(estimatedVelocity.x, estimatedVelocity.y - 1));
                 stepCount++;
                 break;
             case 4:
                 //Move left
-                estimatedVelocity = CalculateCrowdMovement(new Vector2(estimatedVelocity.x - 0.1f, estimatedVelocity.y));
+                estimatedVelocity = CalculateCrowdMovement(new Vector2(estimatedVelocity.x - 1, estimatedVelocity.y));
                 stepCount++;
                 break;
             default:
@@ -96,9 +117,9 @@ public class Sheep : MonoBehaviour {
                 noStepCount++;
                 break;
         }
-        rigidbody.velocity = Vector2.Lerp(rigidbody.velocity, estimatedVelocity, Time.deltaTime);
-        walkAnimationHandler.horizontalVelocity = rigidbody.velocity.x;
-        walkAnimationHandler.verticalVelocity = rigidbody.velocity.y;
+        Vector2 smoothedVelocity = Vector2.Lerp(rigidbody.velocity, estimatedVelocity, Time.deltaTime).normalized;
+        movement.horizontalVelocity = smoothedVelocity.x;
+        movement.verticalVelocity = smoothedVelocity.y;
     }
 
     public bool SheppardInteraction()
@@ -106,15 +127,14 @@ public class Sheep : MonoBehaviour {
         //pregnant sheeps cant lose wool
         if (hasBaby)
         {
-            //TODO stop movement of pregnant sheep
-            StopCoroutine(DeathInChildBirth());
-            if (deathTimer != null) Destroy(deathTimer);
             hasBaby = false;
             SheepManager.numOfPregnantSheeps--;
+            animator.Play("Movement");
+            //TODO stop movement of pregnant sheep
+            StopCoroutine(deathCoroutine);
 
-            GiveBirth(new Vector3(transform.position.x, transform.position.y + SheepManager.newBornSpawnPositionOffset, transform.position.z));
-            renderer.material.color = Color.white;
-            //StartCoroutine(GetPregnant());
+            deathCoroutine = null;
+            if (deathTimer != null) Destroy(deathTimer);
             return true;
         }
 
@@ -139,27 +159,6 @@ public class Sheep : MonoBehaviour {
         animator.Play("Movement");
     }
 
-    public IEnumerator GetPregnant()
-    {
-        yield return new WaitForSeconds(Random.Range(SheepManager.getPregnantLowerTime, SheepManager.getPregnantUpperTime));
-        hasBaby = true;
-
-        animator.Play("Baby Coming");
-        animator.speed = 1;
-
-        StartCoroutine(DeathInChildBirth());
-    }
-
-    private IEnumerator DeathInChildBirth()
-    {
-        yield return new WaitForSeconds(SheepManager.GetManager().deathInChildBirth);
-        //deathTimer = Instantiate(SheepManager.GetManager().deathTimer, new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z), Quaternion.identity);
-        SheepManager.GetManager().sheeps.Remove(gameObject);
-        SheepManager.numOfPregnantSheeps--;
-        //Destroy(deathTimer);
-        Destroy(gameObject);
-    }
-
     public void WolfInteraction()
     {
         animator.Play("Death");
@@ -173,16 +172,38 @@ public class Sheep : MonoBehaviour {
         SheepManager.GetManager().sheeps.Add(newBorn);
     }
 
-    public void setTarget(Vector2 targetPosition)
-    {
-        StartCoroutine("DelayTargetSet", targetPosition);
-    }
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------
+    //          Coroutines
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
     IEnumerator DelayTargetSet(Vector2 targetPosition)
     {
         yield return new WaitForSeconds(Random.Range(0f, 2f));
+        isRunning = true;
         this.targetPosition = targetPosition;
         targetIsActive = Random.Range(3f, 8f);
+    }
+
+    public IEnumerator GetPregnant()
+    {
+        if (deathCoroutine == null)
+        {
+            yield return new WaitForSeconds(Random.Range(SheepManager.getPregnantLowerTime, SheepManager.getPregnantUpperTime));
+            hasBaby = true;
+
+            animator.Play("Baby Coming");
+            animator.speed = 1;
+
+            deathCoroutine = StartCoroutine(DeathInChildBirth());
+        }
+    }
+
+    private IEnumerator DeathInChildBirth()
+    {
+        yield return new WaitForSeconds(SheepManager.GetManager().deathInChildBirth);SheepManager.GetManager().sheeps.Remove(gameObject);
+        SheepManager.numOfPregnantSheeps--;
+        animator.Play("Death");
+        GetComponent<BoxCollider2D>().enabled = false;
     }
 
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -240,7 +261,7 @@ public class Sheep : MonoBehaviour {
             if (col.gameObject == gameObject || !col.tag.Equals("Sheep")) continue;
             GameObject obj = col.gameObject;
             sheepCounter++;
-            ownVelocity += obj.GetComponent<Sheep>().GetVelocity();
+            ownVelocity += obj.GetComponent<Movement>().GetVelocity();
         }
         ownVelocity *= 1.0f / (sheepCounter + 2);
         return ownVelocity;
@@ -250,7 +271,12 @@ public class Sheep : MonoBehaviour {
     {
         return rigidbody.velocity;
     }
-    
+
+    public void setTarget(Vector2 targetPosition)
+    {
+        StartCoroutine("DelayTargetSet", targetPosition);
+    }
+
     public void Death()
     {
         SheepManager.GetManager().sheeps.Remove(gameObject);

@@ -19,6 +19,8 @@ public class Movement : MonoBehaviour {
 
     private Vector3 movementDirection;
 
+    public bool enableMovement = true;
+
     public float speed;
 
 	// Use this for initialization
@@ -47,6 +49,11 @@ public class Movement : MonoBehaviour {
         }
     }
 
+    public Vector2 GetVelocity()
+    {
+        return new Vector2(horizontalVelocity, verticalVelocity);
+    }
+
     void HandleMovement()
     {
         if (player != null && !player.movementEnabled)
@@ -56,7 +63,7 @@ public class Movement : MonoBehaviour {
             return;
         }
 
-        movementDirection = Vector3.up * verticalVelocity / 1.5f + Vector3.right * horizontalVelocity;
+        movementDirection = Vector3.up * verticalVelocity / 1f + Vector3.right * horizontalVelocity;
         rb.velocity = movementDirection * speed;
 
         Vector3 direction = Vector3.up * verticalVelocity + Vector3.right * horizontalVelocity;
@@ -85,7 +92,10 @@ public class Movement : MonoBehaviour {
             }
         }
 
-        SetPlayerHeading();
+        if(player != null)
+        {
+            SetPlayerHeading();
+        }
     }
 
     void SetPlayerHeading()
