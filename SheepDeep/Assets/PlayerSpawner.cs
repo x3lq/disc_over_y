@@ -21,7 +21,11 @@ public class PlayerSpawner : MonoBehaviour
         Player redPlayer = Instantiate(redShepherdPrefab, transform.position, Quaternion.identity).GetComponent<Player>();
         redPlayer.playerID = 1;
 
+        Player newPlayer = Instantiate(wolfPrefab, transform.position + new Vector3(5, 5), Quaternion.identity).GetComponent<Player>();
+        newPlayer.playerID = 2;
+
         CameraBehavior.playerObjects = new List<Player>();
+        CameraBehavior.playerObjects.Add(newPlayer);
         CameraBehavior.playerObjects.Add(redPlayer);
     }
 

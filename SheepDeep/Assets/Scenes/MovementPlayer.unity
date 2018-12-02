@@ -1537,7 +1537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aade62ee20ca134aa212551f3de39ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraMinSize: 5
+  cameraMinSize: 8
   cameraSize: 1.5
   cameraSpeed: 5
 --- !u!1 &1690821692
@@ -1879,6 +1879,11 @@ Prefab:
     - target: {fileID: 114084158699042974, guid: 13e9bb665f779a24596ceb77f9017650,
         type: 2}
       propertyPath: neighborDist
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114084158699042974, guid: 13e9bb665f779a24596ceb77f9017650,
+        type: 2}
+      propertyPath: deathInChildBirth
       value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
