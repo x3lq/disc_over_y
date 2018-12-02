@@ -66,7 +66,7 @@ public class SheepManager : MonoBehaviour
         sheeps = new List<GameObject>();
         for (int i = 0; i < amount; i++)
         {
-            GameObject sheep = GameObject.Instantiate(sheepPrefab, new Vector3(randomCoordinate(x_maxSize),
+            GameObject sheep = Instantiate(sheepPrefab, new Vector3(randomCoordinate(x_maxSize),
                     randomCoordinate(y_maxSize), 0), Quaternion.identity);
             sheep.transform.parent = herd.transform;
             sheeps.Add(sheep);
@@ -76,7 +76,6 @@ public class SheepManager : MonoBehaviour
 	void FixedUpdate() {
         if(numOfPregnantSheeps <= numOfPregnantSheepsAllowed)
         {
-            //Debug.Log(sheeps.Count);
             int i = Random.Range(0, sheeps.Count-1);
             sheeps[i].GetComponent<Sheep>().StartCoroutine(sheeps[i].GetComponent<Sheep>().GetPregnant());
             numOfPregnantSheeps++;
@@ -109,11 +108,13 @@ public class SheepManager : MonoBehaviour
     private void chooseNewTarget()
     {
         Vector2 targetPosition;
+        int counter = -1;
         do
         {
             targetPosition = new Vector2(Random.Range(-x_maxSize, x_maxSize + 1), Random.Range(-y_maxSize, y_maxSize + 1));
+            counter++;
         }
-        while (Vector2.Distance(latestTarget, targetPosition) < minimumTargetDistance);
+        while (Vector2.Distance(latestTarget, targetPosition) < minimumTargetDistance && counter < 100);
         
         foreach(GameObject sheep in sheeps)
         {

@@ -16,6 +16,17 @@ public class PlayerSpawner : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        /*
+        Player redPlayer = Instantiate(redShepherdPrefab, transform.position, Quaternion.identity).GetComponent<Player>();
+        redPlayer.playerID = 1;
+
+        Player newPlayer = Instantiate(wolfPrefab, transform.position + new Vector3(5, 5), Quaternion.identity).GetComponent<Player>();
+        newPlayer.playerID = 2;
+
+        CameraBehavior.playerObjects = new List<Player>();
+        CameraBehavior.playerObjects.Add(newPlayer);
+        CameraBehavior.playerObjects.Add(redPlayer);
+         */
         spawnFieldSize = new Vector2(SheepManager.x_maxSize * (1 - SheepManager.distanceToBorder), SheepManager.y_maxSize * (1 - SheepManager.distanceToBorder)) / 2f;
         AddPlayersToScene();
     }
