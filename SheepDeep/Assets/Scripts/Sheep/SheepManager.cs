@@ -45,6 +45,8 @@ public class SheepManager : MonoBehaviour
     public float neighborDist = 2.0f;
 
     private float magicMotivationCounter = 0;
+    private Vector2 latestTarget = Vector2.zero;
+    public float minimumTargetDistance = 10;
     #endregion
 
     void Awake()
@@ -106,7 +108,13 @@ public class SheepManager : MonoBehaviour
 
     private void chooseNewTarget()
     {
-        Vector2 targetPosition = new Vector2(Random.Range(-x_maxSize, x_maxSize + 1), Random.Range(-y_maxSize, y_maxSize + 1));
+        Vector2 targetPosition;
+        do
+        {
+            targetPosition = new Vector2(Random.Range(-x_maxSize, x_maxSize + 1), Random.Range(-y_maxSize, y_maxSize + 1));
+        }
+        while (Vector2.Distance(latestTarget, targetPosition) < minimumTargetDistance);
+        
         foreach(GameObject sheep in sheeps)
         {
             sheep.GetComponent<Sheep>().setTarget(targetPosition);
