@@ -11,18 +11,13 @@ public class PlayerSpawner : MonoBehaviour
 
     public GameObject redShepherdPrefab, blueShepherdPrefab, greenShepherdPrefab, wolfPrefab;
 
-    public float spawnFieldSize;
+    public Vector2 spawnFieldSize;
 
     // Use this for initialization
     void Start()
     {
-        //AddPlayersToScene();
-
-        Player redPlayer = Instantiate(redShepherdPrefab, transform.position, Quaternion.identity).GetComponent<Player>();
-        redPlayer.playerID = 1;
-
-        CameraBehavior.playerObjects = new List<Player>();
-        CameraBehavior.playerObjects.Add(redPlayer);
+        spawnFieldSize = new Vector2(SheepManager.x_maxSize * (1 - SheepManager.distanceToBorder), SheepManager.y_maxSize * (1 - SheepManager.distanceToBorder)) / 2f;
+        AddPlayersToScene();
     }
 
     // Update is called once per frame
@@ -48,6 +43,7 @@ public class PlayerSpawner : MonoBehaviour
                 case PlayerSelector.Color.WOLF:
                     Player newPlayer = Instantiate(wolfPrefab, transform.position + new Vector3(10, 10), Quaternion.identity).GetComponent<Player>();
                     newPlayer.playerID = player.playerID;
+                    newPlayer.isWolf = true;
                     CameraBehavior.playerObjects.Add(newPlayer);
                     break;
                 default:
@@ -77,6 +73,15 @@ public class PlayerSpawner : MonoBehaviour
 
     void SetSpawnPosition(Player player)
     {
-        player.transform.position = new Vector2(Random.Range(-spawnFieldSize, spawnFieldSize), Random.Range(-spawnFieldSize, spawnFieldSize));
+        if (player.isWolf)
+        {
+            player.transform.position = new Vector2(Random.Range(-spawnFieldSize.x, spawnFieldSize.x), Random.Range(-spawnFieldSize.y, spawnFieldSize.y));
+        }
+        else
+        {
+            float x_pos = ((player.playerID % 2) * 2 - 1) * spawnFieldSize.x;
+            float y_pos = ((player.playerID / 2) * 2 - 1) * spawnFieldSize.y;
+            player.transform.position = new Vector2(x_pos, y_pos);
+        }
     }
 }
