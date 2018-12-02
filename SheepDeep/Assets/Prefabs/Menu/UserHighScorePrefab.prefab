@@ -53,6 +53,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224432439938794116}
+  - component: {fileID: 114467247781121374}
   m_Layer: 5
   m_Name: UserHighScorePrefab
   m_TagString: Untagged
@@ -92,7 +93,20 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: IchBinEinNam
+  m_Text: 
+--- !u!114 &114467247781121374
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1897118487211810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d93064a686a042546a2245740bdbf456, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: {fileID: 1166439213044668}
+  score: {fileID: 1545699054381354}
 --- !u!114 &114942064515396700
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -125,7 +139,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 9:99
+  m_Text: 
 --- !u!222 &222198729876957714
 CanvasRenderer:
   m_ObjectHideFlags: 1
