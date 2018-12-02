@@ -45,13 +45,14 @@ public class Wolf : Player {
     }
 
     public void SheppardInteraction() {
+        GameLoop.wolfCaught();
         animator.Play("Wolf Found");
         movementEnabled = false;
     }
 
     public void WolfFoundAnimationFinished()
     {
-        SceneManager.LoadScene(3);
+   		SceneManager.LoadScene(3);
     }
 
     public void AttackFinished()
