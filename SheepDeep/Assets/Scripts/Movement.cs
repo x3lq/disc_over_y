@@ -85,7 +85,10 @@ public class Movement : MonoBehaviour {
             }
         }
 
-        SetPlayerHeading();
+        if(player != null)
+        {
+            SetPlayerHeading();
+        }
     }
 
     void SetPlayerHeading()

@@ -33,6 +33,8 @@ public class Sheep : MonoBehaviour
     private Vector2 targetPosition;
     private Vector2 estimatedVelocity = new Vector2();
 
+    private Coroutine deathCoroutine;
+
     // Use this for initialization
     void Start()
     {
@@ -123,15 +125,14 @@ public class Sheep : MonoBehaviour
         //pregnant sheeps cant lose wool
         if (hasBaby)
         {
-            //TODO stop movement of pregnant sheep
-            StopCoroutine(DeathInChildBirth());
-            if (deathTimer != null) Destroy(deathTimer);
             hasBaby = false;
             SheepManager.numOfPregnantSheeps--;
+            animator.Play("Movement");
+            //TODO stop movement of pregnant sheep
+            StopCoroutine(deathCoroutine);
 
-            GiveBirth(new Vector3(transform.position.x, transform.position.y + SheepManager.newBornSpawnPositionOffset, transform.position.z));
-            renderer.material.color = Color.white;
-            //StartCoroutine(GetPregnant());
+            deathCoroutine = null;
+            if (deathTimer != null) Destroy(deathTimer);
             return true;
         }
 
@@ -183,13 +184,16 @@ public class Sheep : MonoBehaviour
 
     public IEnumerator GetPregnant()
     {
-        yield return new WaitForSeconds(Random.Range(SheepManager.getPregnantLowerTime, SheepManager.getPregnantUpperTime));
-        hasBaby = true;
+        if (deathCoroutine == null)
+        {
+            yield return new WaitForSeconds(Random.Range(SheepManager.getPregnantLowerTime, SheepManager.getPregnantUpperTime));
+            hasBaby = true;
 
-        animator.Play("Baby Coming");
-        animator.speed = 1;
+            animator.Play("Baby Coming");
+            animator.speed = 1;
 
-        StartCoroutine(DeathInChildBirth());
+            deathCoroutine = StartCoroutine(DeathInChildBirth());
+        }
     }
 
     private IEnumerator DeathInChildBirth()

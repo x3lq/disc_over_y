@@ -38,6 +38,9 @@ public class Wolf : Player {
         if (collider != null && collider.tag.Equals("Sheep"))
         {
             collider.GetComponent<Sheep>().WolfInteraction();
+
+            animator.Play("Wolf Attack");
+            movementEnabled = false;
         }
     }
 
@@ -49,5 +52,12 @@ public class Wolf : Player {
     public void WolfFoundAnimationFinished()
     {
         SceneManager.LoadScene(3);
+    }
+
+    public void AttackFinished()
+    {
+        Debug.Log("Finished");
+        animator.Play("Movement");
+        movementEnabled = true;
     }
 }
