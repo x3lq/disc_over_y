@@ -16,7 +16,7 @@ public class FinishScreen : MonoBehaviour {
 	public Sprite sheep, wolf;
 	private bool startPressed = false;
 	private string name = "";
-	public struct WinType {
+	public class WinType {
 		public bool populationWin, shepparWin;
 		public int winnerId;
 		public int elapsedTime;
@@ -29,12 +29,7 @@ public class FinishScreen : MonoBehaviour {
 	
 	}
 	void Start () {
-		//TODO get winner from GameManagerInstance
-		WinType win = new WinType();
-		win.populationWin = true;
-		win.shepparWin = true;
-		win.winnerId = 4;
-		winner = win;
+		winner = GameLoop.winType;
 
 		if(winner.shepparWin) {
 			if(winner.populationWin) {
@@ -115,6 +110,7 @@ public class FinishScreen : MonoBehaviour {
 			GameObject newItem = Instantiate(highScoreListPrefab, HighScoreList.transform.position, Quaternion.identity) as GameObject;
 			newItem.transform.parent = HighScoreList.transform;
 			newItem.transform.localPosition -= new Vector3(0, 50*pos, 0);
+			newItem.GetComponent<HighScoreListItem>().setText(name, time);
 	}
 
 	private string timeStringFromSecondes(int secondes) {

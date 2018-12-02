@@ -52,8 +52,9 @@ public class InputListener : MonoBehaviour {
 
 		inputBlocker = inputBlockerTimer;
 
-		float horizontalInput = -Input.GetAxisRaw("HorizontalP" + winnerId);//FinishScreen.winner.winnerId);
-		float verticalInput = -Input.GetAxisRaw("VerticalP" + winnerId); //FinishScreen.winner.winnerId);
+		winnerId = FinishScreen.winner.winnerId;
+		float horizontalInput = -Input.GetAxisRaw("HorizontalP" + winnerId);
+		float verticalInput = -Input.GetAxisRaw("VerticalP" + winnerId);
 		
 		if(horizontalInput != 0 && verticalInput != 0) {
 			if(verticalInput < horizontalInput) {
