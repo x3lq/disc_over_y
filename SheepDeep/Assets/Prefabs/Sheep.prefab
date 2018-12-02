@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 61598176838595538}
   - component: {fileID: 114448424323599610}
   - component: {fileID: 114607497165187026}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sheep
   m_TagString: Sheep
   m_Icon: {fileID: 0}
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalVelocity: 0
   verticalVelocity: 0
+  enableMovement: 1
   speed: 2
 --- !u!114 &114607497165187026
 MonoBehaviour:

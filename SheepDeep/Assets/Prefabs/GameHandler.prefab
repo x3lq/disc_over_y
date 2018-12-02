@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4857170981550734}
   - component: {fileID: 114084158699042974}
+  - component: {fileID: 114273196209197622}
   m_Layer: 0
   m_Name: GameHandler
   m_TagString: Untagged
@@ -51,11 +52,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07d9481e102e8524fb7cc96734fe10b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sheeps: []
   x_maxSize: 16
   y_maxSize: 9
   sheepPrefab: {fileID: 0}
   herd: {fileID: 0}
+  deathInChildBirth: 5
   distanceToBorder: 0.2
   amount: 15
   randomSpawnMedian: 4
   randomSpawnVariance: 0.3
+  velocity: 6
+  velocityVariation: 0.5
+  rotationCoeff: 4
+  neighborDist: 2
+  minimumTargetDistance: 10
+--- !u!114 &114273196209197622
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1015221518298794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd6611a29a67921449294b0274329e5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faderImage: {fileID: 0}
+  wolfWin: 0
+  shepartWin: 0

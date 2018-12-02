@@ -12,11 +12,11 @@ public class GameLoop : MonoBehaviour {
 	public static FinishScreen.WinType winType; 
 	public int wolfWin, shepartWin;
 
-	private static Stopwatch stopwatch;
+	private static Stopwatch stopwatch = new Stopwatch();
 	// Use this for initialization
 	void Start () {
 		instance = this;
-		stopwatch = new Stopwatch();
+		//stopwatch = new Stopwatch();
 		stopwatch.Start();
 	}
 	
@@ -57,7 +57,8 @@ public class GameLoop : MonoBehaviour {
 		winType.shepparWin = true;
 		winType.populationWin = false;
 		winType.elapsedTime = stopwatch.Elapsed.Seconds;
-		instance.StartCoroutine("transitionToHighscore");
+        UnityEngine.Debug.Log(instance == null);
+		instance.StartCoroutine(instance.transitionToHighScore());
 	}
 
 	IEnumerator transitionToHighScore() {

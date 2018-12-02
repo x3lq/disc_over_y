@@ -10,6 +10,8 @@ public class Wolf : Player {
 	// Use this for initialization
 	void Start () {
         animator = GetComponent<Animator>();
+
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Sheep"), LayerMask.NameToLayer("Wolf"));
 	}
 	
 	// Update is called once per frame
@@ -37,10 +39,12 @@ public class Wolf : Player {
 
         if (collider != null && collider.tag.Equals("Sheep"))
         {
+            AudioManager.PlayWolfAttack();
+
             collider.GetComponent<Sheep>().WolfInteraction();
 
             animator.Play("Wolf Attack");
-            movementEnabled = false;
+            //movementEnabled = false;
         }
     }
 
