@@ -152,16 +152,7 @@ public class Sheep : MonoBehaviour
 
     public bool SheppardInteraction()
     {
-        if (hasBaby)
-        {
-            animator.Play("Movement");
-
-            StopCoroutine(deathCoroutine);
-
-            deathCoroutine = null;
-            //if (deathTimer != null) Destroy(deathTimer);
-            return true;
-        }
+        
 
         if (hasWool)
         {
@@ -181,7 +172,36 @@ public class Sheep : MonoBehaviour
         }
     }
 
-    private void GrowWool()
+    public void HelpBaby()
+    {
+        if (hasBaby)
+        {
+            animator.Play("Movement");
+
+            StopCoroutine(deathCoroutine);
+
+            deathCoroutine = null;
+            movement.enableMovement = false;
+            //if (deathTimer != null) Destroy(deathTimer);
+        }
+    }
+
+    public void Kill()
+    {
+        if (hasWool)
+        {
+            animator.Play("Death");
+            movement.enableMovement = false;
+            //AudioManager.PlaySheepShear();
+            //isBeingSheared = true;
+            //hasWool = false;
+            //
+            //animator.Play("Shear");
+            //isBeingSheared = false;
+        }
+    }
+
+        private void GrowWool()
     {
         hasWool = true;
         animator.Play("Movement");
