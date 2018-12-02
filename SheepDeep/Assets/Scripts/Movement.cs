@@ -56,7 +56,7 @@ public class Movement : MonoBehaviour {
 
     void HandleMovement()
     {
-        if (player != null && !player.movementEnabled)
+        if (player != null && !player.movementEnabled || !enableMovement)
         {
             movementDirection = Vector2.zero;
             rb.velocity = Vector2.zero;

@@ -159,6 +159,8 @@ public class Sheep : MonoBehaviour
             StopCoroutine(deathCoroutine);
 
             deathCoroutine = null;
+
+            movement.enableMovement = false;
             //if (deathTimer != null) Destroy(deathTimer);
             return true;
         }
