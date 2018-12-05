@@ -9,7 +9,7 @@ public class SheepManager : MonoBehaviour
     public static int numOfPregnantSheeps = 0;
     public static int numOfPregnantSheepsAllowed = 5;
     //anchor point is bottom left
-    public static int x_maxSize, y_maxSize;
+    public static int x_maxSize = 8, y_maxSize = 8;
     public GameObject sheepPrefab;
     public GameObject herd;
     //public GameObject deathTimer;
@@ -51,14 +51,8 @@ public class SheepManager : MonoBehaviour
 
     void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(this);
-        }
+        instance = this;
+        numOfPregnantSheeps = 0;
     }
 
     void Start()
@@ -73,15 +67,6 @@ public class SheepManager : MonoBehaviour
         }
     }
 
-	void FixedUpdate() {
-        if(numOfPregnantSheeps <= numOfPregnantSheepsAllowed)
-        {
-            int i = Random.Range(0, sheeps.Count-1);
-            sheeps[i].GetComponent<Sheep>().StartCoroutine(sheeps[i].GetComponent<Sheep>().GetPregnant());
-            numOfPregnantSheeps++;
-        }
-    }
-
     void Update()
     {
         if(magicMotivationCounter <= 0)
@@ -92,6 +77,13 @@ public class SheepManager : MonoBehaviour
         else
         {
             magicMotivationCounter -= Time.deltaTime;
+        }
+
+        if(numOfPregnantSheeps <= numOfPregnantSheepsAllowed)
+        {
+            int i = Random.Range(0, sheeps.Count-1);
+            sheeps[i].GetComponent<Sheep>().StartCoroutine(sheeps[i].GetComponent<Sheep>().GetPregnant());
+            numOfPregnantSheeps++;
         }
     }
 

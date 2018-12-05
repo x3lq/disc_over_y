@@ -22,11 +22,20 @@ public class Shepherd : Player {
     {
         if (Input.GetKeyDown("joystick " + playerID + " button 0"))
         {
-            TriggerInteraction();
+            TriggerKill();
+        }
+        if (Input.GetKeyDown("joystick " + playerID + " button 1"))
+        {
+            TriggerHelp();
+        }
+        if (Input.GetKeyDown("joystick " + playerID + " button 3"))
+        {
+            Debug.Log("Call");
+            callSheep();
         }
     }
 
-    void TriggerInteraction()
+    void TriggerKill()
     {
         Collider2D collider = Physics2D.OverlapBox(transform.position + (Vector3)heading*0.8f + Vector3.down * 0.9f, new Vector2(interactionCheckBoxSize, interactionCheckBoxSize), 0);
         
@@ -34,23 +43,31 @@ public class Shepherd : Player {
         {
             Sheep sheep = collider.GetComponent<Sheep>();
 
-            animator.speed = 1;
-            if (sheep.hasBaby)
+            if (!sheep.hasBaby)
             {
-                motherSheep = sheep;
-                animator.Play("Baby Born");
-            }
-            else
-            {
+                animator.speed = 1;
                 animator.Play("Shear");
-            }
-            movementEnabled = false;
+                movementEnabled = false;
 
-            sheep.SheppardInteraction();
+                sheep.Kill();
+            }
         }
 
-        if(collider != null && collider.tag.Equals("Wolf")) {
+        if (collider != null && collider.tag.Equals("Wolf"))
+        {
             collider.GetComponent<Wolf>().SheppardInteraction();
+        }
+    }
+
+    private void callSheep()
+    {
+        Collider2D[] objects = Physics2D.OverlapCircleAll(transform.position, 5);
+        foreach(Collider2D coll in objects)
+        {
+            if (coll.tag.Equals("Sheep"))
+            {
+                coll.gameObject.GetComponent<Sheep>().setFleePosition(transform.position);
+            }
         }
     }
 
@@ -76,9 +93,27 @@ public class Shepherd : Player {
     {
         movementEnabled = true;
         animator.Play("Movement");
-        
+        GameLoop.getInstance().shepherdBirth++;
         motherSheep.GiveBirth(motherSheep.transform.position);
 
         motherSheep = null;
     }
 }
+
+    void TriggerHelp()
+    {
+        Collider2D collider = Physics2D.OverlapBox(transform.position + (Vector3)heading * 0.8f + Vector3.down * 0.9f, new Vector2(interactionCheckBoxSize, interactionCheckBoxSize), 0);
+
+        if (collider != null && collider.tag.Equals("Sheep"))
+        {
+            Sheep sheep = collider.GetComponent<Sheep>();
+            if (sheep.hasBaby)
+            {
+                animator.speed = 1;
+                motherSheep = sheep;
+                animator.Play("Baby Born");
+
+                sheep.HelpBaby();
+                movementEnabled = false;
+            }
+        }

@@ -15,12 +15,17 @@ public class AudioManager : MonoBehaviour {
     public List<AudioClip> sheepDyingClips;
     public List<AudioClip> shaverClips;
     public List<AudioClip> weirdClips;
+    public List<AudioClip> randomSheepNoises;
+    public List<AudioClip> shepherdsWin;
+    public List<AudioClip> wolfCaughtClips;
 
 
     // Use this for initialization
     void Start () {
         instance = this;
         source = GetComponent<AudioSource>();
+
+        StartCoroutine(randomSheepNoisesCoroutine());
 	}
 	
 	// Update is called once per frame
@@ -28,10 +33,31 @@ public class AudioManager : MonoBehaviour {
 		
 	}
 
+    private IEnumerator randomSheepNoisesCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(5, 15));
+
+            PlayRandomFromList(randomSheepNoises, Random.Range(0.5f, 1f));
+        }
+    }
+
+
     private void PlayRandomFromList(List<AudioClip> list, float volume)
     {
         AudioClip selected = list[Random.Range(0, list.Count)];
         source.PlayOneShot(selected, volume);
+    }
+
+    public static void PlayShepherdWins()
+    {
+        instance.PlayRandomFromList(instance.shepherdsWin, 1);
+    }
+
+    public static void PlayWolfCaught()
+    {
+        instance.PlayRandomFromList(instance.wolfCaughtClips, 1);
     }
 
     public static void PlayBirthShepherd()

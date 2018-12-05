@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class GameLoop : MonoBehaviour {
 
+	public int wolfBites = 0, shepherdBirth = 0;
 	static GameLoop instance;
 	public Image faderImage;
 	public static FinishScreen.WinType winType; 
@@ -15,7 +16,11 @@ public class GameLoop : MonoBehaviour {
 	private static Stopwatch stopwatch = new Stopwatch();
 	// Use this for initialization
 	void Start () {
-		instance = this;
+		if(instance == null) {
+			instance = this;
+		} else {
+			Destroy (this);
+		}
 		//stopwatch = new Stopwatch();
 		stopwatch.Start();
 	}
@@ -25,6 +30,7 @@ public class GameLoop : MonoBehaviour {
 		int numberOfSheeps = SheepManager.GetManager().sheeps.Count;
 		UnityEngine.Debug.Log(numberOfSheeps);
 		if(numberOfSheeps >= shepartWin) {
+            AudioManager.PlayShepherdWins();
 			shepartWins();
 		}
 
@@ -39,6 +45,8 @@ public class GameLoop : MonoBehaviour {
 		winType.shepparWin = true;
 		winType.populationWin = true;
 		winType.elapsedTime = stopwatch.Elapsed.Seconds;
+		winType.bites = wolfBites;
+		winType.born = shepherdBirth;
 		StartCoroutine(transitionToHighScore());
 	}
 
@@ -48,26 +56,34 @@ public class GameLoop : MonoBehaviour {
 		winType.shepparWin = false;
 		winType.populationWin = true;
 		winType.elapsedTime = stopwatch.Elapsed.Seconds;
+		winType.bites = wolfBites;
+		winType.born = shepherdBirth;
 		StartCoroutine(transitionToHighScore());
 	}
 
 	public static void wolfCaught() {
 		stopwatch.Stop();
-		winType = new FinishScreen.WinType();
+        AudioManager.PlayWolfCaught();
+        winType = new FinishScreen.WinType();
 		winType.shepparWin = true;
 		winType.populationWin = false;
 		winType.elapsedTime = stopwatch.Elapsed.Seconds;
-        UnityEngine.Debug.Log(instance == null);
+		winType.bites = instance.wolfBites;
+		winType.born = instance.shepherdBirth;
 		instance.StartCoroutine(instance.transitionToHighScore());
 	}
 
 	IEnumerator transitionToHighScore() {
 
 		while(faderImage.color.a < 0.98) {
-			float a = faderImage.color.a + Time.deltaTime;
+			float a = faderImage.color.a + Time.deltaTime/3;
 			faderImage.color = new Color(0, 0, 0, a);
 			yield return null;
 		}
 		SceneManager.LoadScene(3);
+	}
+
+	public static GameLoop getInstance() {
+		return instance;
 	}
 }

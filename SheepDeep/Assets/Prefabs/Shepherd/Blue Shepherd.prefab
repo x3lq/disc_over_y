@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalVelocity: 0
   verticalVelocity: 0
+  enableMovement: 1
   speed: 5
 --- !u!114 &114911945471236956
 MonoBehaviour:
@@ -136,6 +137,8 @@ MonoBehaviour:
   playerID: 1
   interactionCheckBoxSize: 0.2
   heading: {x: 0, y: 0}
+  movementEnabled: 1
+  isWolf: 0
 --- !u!212 &212838888522783548
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -170,7 +173,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 6ff906c266bf40940a85ce8c9ee85b42, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
